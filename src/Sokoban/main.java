@@ -1,5 +1,7 @@
 package Sokoban;
 
+import Test.src.Position;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -23,7 +25,7 @@ public class main extends Frame{
     private GridLayout grid;
     private int row;
     private int col;
-    private int[] position;
+    private Position position;
 
     //måste hålla koll på vart playern är hela tiden och uppdatera denna
     //om spelaren är jämte lådan och trycker på den tomma rutan framför lådan flyttar de
@@ -42,8 +44,8 @@ public class main extends Frame{
         grid = new GridLayout(level.getHeight(),level.getWidth());
         centerComponent.setLayout(grid);
         centerComponent.setPreferredSize(new Dimension(1000,1000));
-        position[0] = level.getStartRow();
-        position[1] = level.getStartCol();
+        position = new Position(level.getTargetRow(), level.getStartCol());
+
         for (int row = 0; row < level.getHeight(); row++) {
             for (int col = 0; col < level.getWidth(); col++) {
                 this.col = col;
@@ -94,11 +96,32 @@ public class main extends Frame{
     }
 
     public MouseListener walkOnBlank(int row, int col) {
-        System.out.println("Flytta!");
         MouseListener m = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
+                if(position.equals(new Position(row+1,col)) || position.equals(new Position(row-1,col))||position.equals(new Position(row,col+1)) ||position.equals(new Position(row,col-1))){
+                    System.out.println("mouseclicked");
+                    map[row][col].setName("player"); //give clicked tile player name
+                    map[position.getRow()][position.getCol()].setName("blank");
+                    map[row][col].add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\player.png")));
+                    map[position.getRow()][position.getCol()].add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\blank.png")));
+                    map[row][col].repaint();
+                    map[row][col].revalidate();
+                    map[position.getRow()][position.getCol()].repaint();
+                    map[position.getRow()][position.getCol()].revalidate();
+                    position = new Position(row, col);
+
+                    frame.repaint();
+                    frame.revalidate();
+                }
+                //check if player is at any tile around
+
+                //put player on this spot
+                //put blank where player was
+                //update positions in map
+                //else
+                // do nothing
             }
 
             @Override
@@ -123,16 +146,9 @@ public class main extends Frame{
         };
         return m;
 
-        //check if player is at any tile around
-            //put player on this spot
-            //put blank where player was
-            //update positions in map
-        //else
-            // do nothing
     }
 
     public MouseListener pushBox(int row, int col) {
-        System.out.println("Push!");
         MouseListener m = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -174,7 +190,6 @@ public class main extends Frame{
     }
 
     public MouseListener finishLine(int row, int col) {
-        System.out.println("Finish!");
         MouseListener m = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
