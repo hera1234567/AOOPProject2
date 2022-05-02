@@ -26,6 +26,9 @@ public class main extends Frame {
     //om spelaren är jämte lådan och trycker på den tomma rutan framför lådan flyttar de
 
 
+    //FUNKA
+
+
     public main(Level level){
         this.level = level;
         map = new JPanel[level.getHeight()][level.getWidth()];
