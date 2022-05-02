@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-//HEJ
+import java.awt.event.MouseListener;
 
 /*
 - If one box gets stuck = FAIL
@@ -15,14 +15,12 @@ import java.awt.event.MouseEvent;
     - one person creates a private and adds the other as a collaborator
 -
  */
-public class main extends Frame{
+public class main extends Frame {
     private JPanel centerComponent;
     private static JLabel[] arrayLabel;
     private Level level;
     private JPanel[][] map;
     private GridLayout grid;
-    private int row;
-    private int col;
 
     //måste hålla koll på vart playern är hela tiden och uppdatera denna
     //om spelaren är jämte lådan och trycker på den tomma rutan framför lådan flyttar de
@@ -40,8 +38,6 @@ public class main extends Frame{
         centerComponent.setPreferredSize(new Dimension(1000,1000));
         for (int row = 0; row < level.getHeight(); row++) {
             for (int col = 0; col < level.getWidth(); col++) {
-                this.col = col;
-                this.row = row;
                 JPanel positionPanel = new JPanel();
                 positionPanel.setSize(300,300);
 
@@ -59,34 +55,20 @@ public class main extends Frame{
                     positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\crate.png")));
                     positionPanel.setName("box");
                     map[row][col] = positionPanel;
-                    positionPanel.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) { //mouselistner added on the green steps, that will add a tower on click
-                           // pushBox(row, col);
-                        }
-                    });
+                    positionPanel.addMouseListener(pushBox(row,col));
                 }
                 else if(row==level.getTargetRow() && col== level.getTargetCol()){ //if it's the targets position
                     positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\blankmarked.png")));
                     positionPanel.setName("target");
                     map[row][col] = positionPanel;
-                    positionPanel.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) { //mouselistner added on the green steps, that will add a tower on click
-                            //finishLine(row, col);
-                        }
-                    });
+                    positionPanel.addMouseListener(finishLine(row,col));
                 }
                 else { //if it's a blank
                     positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\blank.png")));
                     positionPanel.setName("blank");
                     map[row][col] = positionPanel;
-                    positionPanel.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) { //mouselistner added on the green steps, that will add a tower on click
-                            //walkOnBlank(row, col);
-                        }
-                    });
+                    positionPanel.addMouseListener(walkOnBlank(row,col));
+
                 }
                 centerComponent.add(positionPanel);
             }
@@ -102,19 +84,72 @@ public class main extends Frame{
         return centerComponent;
     }
 
-    public void walkOnBlank(int row, int col) {
-        System.out.println("Flytta!");
+    public MouseListener walkOnBlank(int row, int col){
+        MouseListener m = new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("FUNKAR");
+                System.out.println("Row: " + row + " Col: " + col);
+                //check if player is at any tile around
+                //put player on this spot
+                //put blank where player was
+                //update positions in map
+                //else
+                // do nothing
+            }
 
-        //check if player is at any tile around
-            //put player on this spot
-            //put blank where player was
-            //update positions in map
-        //else
-            // do nothing
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        };
+        return m;
     }
 
-    public void pushBox(int row, int col) {
+    public MouseListener pushBox(int row, int col) {
         System.out.println("Push!");
+        MouseListener m = new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        };
+        return m;
         //check if box is allowed to move there
             //check if player is at any tile around
                 //put player on this spot
@@ -128,8 +163,35 @@ public class main extends Frame{
 
     }
 
-    public void finishLine(int row, int col) {
+    public MouseListener finishLine(int row, int col) {
         System.out.println("Finish!");
+        MouseListener m = new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        };
+        return m;
         //check if player is at any tile around
             //put player on this spot
             //put blank where player was
@@ -147,4 +209,5 @@ public class main extends Frame{
         Level l = Level.level2();
         main m = new main(l);
     }
+
 }
