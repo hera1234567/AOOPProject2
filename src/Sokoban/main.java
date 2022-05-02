@@ -44,7 +44,7 @@ public class main extends Frame{
         grid = new GridLayout(level.getHeight(),level.getWidth());
         centerComponent.setLayout(grid);
         centerComponent.setPreferredSize(new Dimension(1000,1000));
-        position = new Position(level.getTargetRow(), level.getStartCol());
+        position = new Position(level.getStartRow(), level.getStartCol());
 
         for (int row = 0; row < level.getHeight(); row++) {
             for (int col = 0; col < level.getWidth(); col++) {

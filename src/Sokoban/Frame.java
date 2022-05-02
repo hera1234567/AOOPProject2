@@ -13,7 +13,6 @@ public abstract class Frame extends JFrame{
 
 
     public Frame(){
-        System.out.println("In slideshow pres");
         frame.setLayout(new BoxLayout(frame.getContentPane(),BoxLayout.Y_AXIS));
         JPanel panel = new JPanel();
         BoxLayout box = new BoxLayout(panel, BoxLayout.Y_AXIS);
