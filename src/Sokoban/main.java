@@ -21,7 +21,7 @@ public class main extends Frame{
     private JPanel centerComponent;
     private static JLabel[] arrayLabel;
     private Level level;
-    private JPanel[][] map;
+    private JLabel[][] map;
     private GridLayout grid;
     private int row;
     private int col;
@@ -36,47 +36,46 @@ public class main extends Frame{
 
     public main(Level level){
         this.level = level;
-        map = new JPanel[level.getHeight()][level.getWidth()];
+        map = new JLabel[level.getHeight()][level.getWidth()];
         buildLevel();
     }
 
     private void buildLevel(){
         grid = new GridLayout(level.getHeight(),level.getWidth());
         centerComponent.setLayout(grid);
-        centerComponent.setPreferredSize(new Dimension(1000,1000));
+        centerComponent.setPreferredSize(new Dimension(level.getWidth()*100,level.getHeight()*100));
         position = new Position(level.getStartRow(), level.getStartCol());
 
         for (int row = 0; row < level.getHeight(); row++) {
             for (int col = 0; col < level.getWidth(); col++) {
                 this.col = col;
                 this.row = row;
-                JPanel positionPanel = new JPanel();
-                positionPanel.setSize(300,300);
+                JLabel positionPanel = new JLabel();
 
                 if(!level.getPassable()[row][col]){ //if there is wall
-                    positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\wall.png")));
+                    positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\wall.png"));
                     positionPanel.setName("wall");
                     map[row][col] = positionPanel;
                 }
                 else if(row==level.getStartRow() && col==level.getStartCol()){ //if there its the starting position for the player
-                    positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\player.png")));
+                    positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\player.png"));
                     positionPanel.setName("player");
                     map[row][col] = positionPanel;
                 }
                 else if(row==level.getBoxStartRow() && col== level.getBoxStartCol()){ //if it's the boxes starting position
-                    positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\crate.png")));
+                    positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\crate.png"));
                     positionPanel.setName("box");
                     map[row][col] = positionPanel;
                     positionPanel.addMouseListener(pushBox(row,col));
                 }
                 else if(row==level.getTargetRow() && col== level.getTargetCol()){ //if it's the targets position
-                    positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\blankmarked.png")));
+                    positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\blankmarked.png"));
                     positionPanel.setName("target");
                     map[row][col] = positionPanel;
                     positionPanel.addMouseListener(finishLine(row,col));
                 }
                 else { //if it's a blank
-                    positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\blank.png")));
+                    positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\blank.png"));
                     positionPanel.setName("blank");
                     map[row][col] = positionPanel;
                     positionPanel.addMouseListener(walkOnBlank(row,col));
@@ -91,7 +90,7 @@ public class main extends Frame{
     @Override
     public JComponent createCenterComponent() {
         centerComponent = new JPanel();
-        centerComponent.setPreferredSize(new Dimension(200,150));
+        centerComponent.setPreferredSize(new Dimension(1000,1000));
         return centerComponent;
     }
 
@@ -104,8 +103,8 @@ public class main extends Frame{
                     //System.out.println("mouseclicked");
                     map[row][col].setName("player"); //give clicked tile player name
                     map[position.getRow()][position.getCol()].setName("blank");
-                    map[row][col].add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\player.png")));
-                    map[position.getRow()][position.getCol()].add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\blank.png")));
+                    map[row][col].setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\player.png"));
+                    map[position.getRow()][position.getCol()].setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\blank.png"));
                     map[row][col].repaint();
                     map[row][col].revalidate();
                     map[position.getRow()][position.getCol()].repaint();
@@ -115,13 +114,7 @@ public class main extends Frame{
                     frame.repaint();
                     frame.revalidate();
                 }
-                //check if player is at any tile around
 
-                //put player on this spot
-                //put blank where player was
-                //update positions in map
-                //else
-                // do nothing
             }
 
             @Override

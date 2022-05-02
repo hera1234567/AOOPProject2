@@ -17,7 +17,7 @@ public abstract class Frame extends JFrame{
         JPanel panel = new JPanel();
         BoxLayout box = new BoxLayout(panel, BoxLayout.Y_AXIS);
         panel.setLayout(box);
-        panel.setBorder(new EmptyBorder(new Insets(25, 30, 50, 50)));
+        panel.setBorder(new EmptyBorder(new Insets(20, 20, 10, 10)));
         centercomponent = (JPanel) createCenterComponent();
         panel.add(centercomponent);
         panel.add(t);
