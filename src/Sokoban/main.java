@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-//HEJ
 
 /*
 - If one box gets stuck = FAIL
@@ -23,6 +22,7 @@ public class main extends Frame{
     private GridLayout grid;
     private int row;
     private int col;
+    private int[] position;
 
     //måste hålla koll på vart playern är hela tiden och uppdatera denna
     //om spelaren är jämte lådan och trycker på den tomma rutan framför lådan flyttar de
@@ -38,6 +38,8 @@ public class main extends Frame{
         grid = new GridLayout(level.getHeight(),level.getWidth());
         centerComponent.setLayout(grid);
         centerComponent.setPreferredSize(new Dimension(1000,1000));
+        position[0] = level.getStartRow();
+        position[1] = level.getStartCol();
         for (int row = 0; row < level.getHeight(); row++) {
             for (int col = 0; col < level.getWidth(); col++) {
                 this.col = col;
