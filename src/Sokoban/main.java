@@ -101,7 +101,7 @@ public class main extends Frame{
             public void mouseClicked(MouseEvent e) {
 
                 if(position.equals(new Position(row+1,col)) || position.equals(new Position(row-1,col))||position.equals(new Position(row,col+1)) ||position.equals(new Position(row,col-1))){
-                    System.out.println("mouseclicked");
+                    //System.out.println("mouseclicked");
                     map[row][col].setName("player"); //give clicked tile player name
                     map[position.getRow()][position.getCol()].setName("blank");
                     map[row][col].add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\player.png")));
