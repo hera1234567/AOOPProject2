@@ -7,7 +7,7 @@ import java.awt.*;
 public abstract class Frame extends JFrame{
 
     private JLabel t = new JLabel();
-    public JPanel centercomponent;
+    public JComponent centercomponent;
     public JFrame frame = new JFrame();
     public abstract JComponent createCenterComponent();
 
@@ -18,7 +18,7 @@ public abstract class Frame extends JFrame{
         BoxLayout box = new BoxLayout(panel, BoxLayout.Y_AXIS);
         panel.setLayout(box);
         panel.setBorder(new EmptyBorder(new Insets(20, 20, 10, 10)));
-        centercomponent = (JPanel) createCenterComponent();
+        centercomponent = createCenterComponent();
         panel.add(centercomponent);
         panel.add(t);
 

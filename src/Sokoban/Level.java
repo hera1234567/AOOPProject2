@@ -49,31 +49,35 @@ public class Level {
 
     public static Level level1(){
         boolean[][] passable = {
-                {false,false,false,false},
-                {true,true,true,true},
-                {false, false,false,false}
+                {false,false,false,false,false,false},
+                {false,true,true,true,true,false},
+                {false,false,false,false,false,false}
         };
-        return new Level(3,4,passable,1,0,1,3,1,1);
+        return new Level(3,6,passable,1,1,1,4,1,2);
     }
 
     public static Level level2(){
         boolean[][] passable = {
-                {false,true,true,true,false},
-                {true,true,false,true,false},
-                {false,true,true,true,false},
-                {false,false,true,true,false}
+                {false,false,false,false,false,false},
+                {false,false,true,true,true,false},
+                {false,true,true,false,true,false},
+                {false,false,true,true,true,false},
+                {false,false,false,true,true,false},
+                {false,false,false,false,false,false}
         };
-        return new Level(4,5,passable,1,0, 3, 3,2, 2);
+        return new Level(6,6,passable,2,1, 4, 4,3, 3);
     }
 
     public static Level level3(){
         boolean[][] passable = {
+                {false,false,false,false,false,false},
                 {false,false,true,true,true,false},
                 {true,true,true,true,true,false},
                 {false,true,true,false,true,false},
-                {false,true,true,true,true,true}
+                {false,true,true,true,true,true},
+                {false,false,false,false,false,false}
         };
-        return new Level(4,6,passable,1,0,3,5,1,2 );
+        return new Level(6,6,passable,2,0,4,5,2,2 );
     }
 
 }
