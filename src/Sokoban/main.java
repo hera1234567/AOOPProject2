@@ -11,10 +11,7 @@ public class main extends Frame{
     private Level level;
     private JLabel[][] map;
     private GridLayout grid;
-    private int row;
-    private int col;
     private Position player;
-    private ImageIcon boxIm;
 
 
     public main(Level level){
@@ -31,8 +28,6 @@ public class main extends Frame{
 
         for (int row = 0; row < level.getHeight(); row++) {
             for (int col = 0; col < level.getWidth(); col++) {
-                this.col = col;
-                this.row = row;
                 JLabel positionPanel = new JLabel();
                 if(!level.getPassable()[row][col]){ //if there is wall
                     positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\wall.png"));
