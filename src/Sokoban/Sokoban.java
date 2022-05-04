@@ -40,10 +40,10 @@ public class Sokoban{
                     positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\wall.png")));
                     map[row+col][row][col] = positionPanel;
                 }
-                else if(row==level.getStartRow() && col==level.getStartCol()){ //if there its the starting position for the player
+                else if(row==level.getPlayerRow() && col==level.getPlayerCol()){ //if there its the starting position for the player
                     positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\player.png")));
                 }
-                else if(row==level.getBoxStartRow() && col== level.getBoxStartCol()){ //if it's the boxes starting position
+                else if(row==level.getBoxRow() && col== level.getBoxCol()){ //if it's the boxes starting position
                     positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\crate.png")));
                     positionPanel.addMouseListener(new MouseAdapter() {
                         @Override

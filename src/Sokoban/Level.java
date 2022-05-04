@@ -5,41 +5,53 @@ import Test.src.Position;
 public class Level {
 
     private int height, width;
-    private int startRow;
-    private int startCol;
+    private int playerRow;
+    private int playerCol;
     private int targetRow;
     private int targetCol;
-    private int boxStartRow;
-    private int boxStartCol;
+    private int boxRow;
+    private int boxCol;
     private boolean [][] passable;
 
     public Level(int height, int width, boolean[][] passable,
-                             int startRow, int startCol,
+                             int playerRow, int playerCol,
                              int targetRow, int targetCol,
-                             int boxStartRow, int boxStartCol) {
+                             int boxRow, int boxCol) {
         this.height = height;
         this.width = width;
-        this.startRow = startRow;
-        this.startCol = startCol;
+        this.playerRow = playerRow;
+        this.playerCol = playerCol;
         this.passable = passable;
-        this.boxStartCol = boxStartCol;
-        this.boxStartRow = boxStartRow;
+        this.boxCol = boxCol;
+        this.boxRow = boxRow;
         this.targetCol = targetCol;
         this.targetRow = targetRow;
 
     }
 
-    public int getStartRow() {return startRow;}
+    public int getPlayerRow() {return playerRow;}
 
-    public int getStartCol() {return startCol;}
+    public int getPlayerCol() {return playerCol;}
 
     public int getTargetRow(){return targetRow;}
 
     public int getTargetCol(){return targetCol;}
 
-    public int getBoxStartRow(){return boxStartRow;}
+    public int getBoxRow(){return boxRow;}
 
-    public int getBoxStartCol(){return boxStartCol;}
+    public int getBoxCol(){return boxCol;}
+
+    public void setPlayerRow(int row) {playerRow=row;}
+
+    public void setPlayerCol(int col) {playerCol=col;}
+
+    public void setTargetRow(int row) {targetRow=row;}
+
+    public void setTargetCol(int col) {targetCol=col;}
+
+    public void setBoxRow(int row) {boxRow=row;}
+
+    public void setBoxCol(int col) {boxCol=col;}
 
     public int getHeight() {return height;}
 
@@ -58,14 +70,14 @@ public class Level {
 
     public static Level level2(){
         boolean[][] passable = {
-                {false,false,false,false,false,false},
-                {false,false,true,true,true,false},
-                {false,true,true,false,true,false},
-                {false,false,true,true,true,false},
-                {false,false,false,true,true,false},
-                {false,false,false,false,false,false}
+                {false,false,false,false,false},
+                {false,true,true,true,false},
+                {true,true,false,true,false},
+                {false,true,true,true,false},
+                {false,false,true,true,false},
+                {false,false,false,false,false}
         };
-        return new Level(6,6,passable,2,1, 4, 4,3, 3);
+        return new Level(6,5,passable,2,0, 4, 3,3, 2);
     }
 
     public static Level level3(){
@@ -78,6 +90,18 @@ public class Level {
                 {false,false,false,false,false,false}
         };
         return new Level(6,6,passable,2,0,4,5,2,2 );
+    }
+
+    public static Level level4(){
+        boolean[][] passable = {
+                {false,false,false,false,false,false},
+                {false,true,true,true,true,false},
+                {false,true,true,true,true,false},
+                {false,true,true,true,true,false},
+                {false,true,true,true,true,false},
+                {false,false,false,false,false,false}
+        };
+        return new Level(6,6,passable,2,1,4,5,2,2 );
     }
 
 }
