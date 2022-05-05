@@ -1,109 +1,202 @@
 package Sokoban;
 
 import Test.src.Position;
-import Test.src.Tower;
-
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class Sokoban{
-
-    private JFrame frame = new JFrame();
-    private static JLabel[] arrayLabel;
+public class Sokoban extends Frame{
+    private JPanel centerComponent;
     private Level level;
-    private JPanel[][][] map;
+    private JLabel[][] map;
+    private GridLayout grid;
+    private Position player;
+
 
     public Sokoban(Level level){
         this.level = level;
-        JPanel panel = new JPanel();
-        BoxLayout box = new BoxLayout(panel, BoxLayout.Y_AXIS);
-        panel.setLayout(box);
-        panel.setBorder(new EmptyBorder(new Insets(25, 30, 100, 100)));
+        map = new JLabel[level.getHeight()][level.getWidth()];
+        buildLevel();
+    }
 
-        JPanel mainPanel = new JPanel();
-        mainPanel.setPreferredSize(new Dimension(500,500));
-        mainPanel.setLayout(new GridLayout(level.getHeight(), level.getWidth()));
-        panel.add(mainPanel);
-        frame.add(panel);
-
-        map = new JPanel[level.getWidth()*level.getHeight()][level.getHeight()][level.getWidth()];
+    private void buildLevel(){
+        grid = new GridLayout(level.getHeight(),level.getWidth());
+        centerComponent.removeAll();
+        centerComponent.setLayout(grid);
+        player = new Position(level.getPlayerRow(), level.getPlayerCol());
 
         for (int row = 0; row < level.getHeight(); row++) {
             for (int col = 0; col < level.getWidth(); col++) {
-                JPanel positionPanel = new JPanel();
-                positionPanel.setSize(300,300);
-
+                JLabel positionPanel = new JLabel();
                 if(!level.getPassable()[row][col]){ //if there is wall
-                    positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\wall.png")));
-                    map[row+col][row][col] = positionPanel;
+                    positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\wall.png"));
+                    positionPanel.setName("wall");
+                    map[row][col] = positionPanel;
                 }
                 else if(row==level.getPlayerRow() && col==level.getPlayerCol()){ //if there its the starting position for the player
-                    positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\player.png")));
-                }
-                else if(row==level.getBoxRow() && col== level.getBoxCol()){ //if it's the boxes starting position
-                    positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\crate.png")));
-                    positionPanel.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) { //mouselistner added on the green steps, that will add a tower on click
-                            pushBox();
-                        }
-                    });
+                    positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\player.png"));
+                    positionPanel.setName("player");
+                    map[row][col] = positionPanel;
                 }
                 else if(row==level.getTargetRow() && col== level.getTargetCol()){ //if it's the targets position
-                    positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\blankmarked.png")));
-                    positionPanel.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) { //mouselistner added on the green steps, that will add a tower on click
-                            finishLine();
-                        }
-                    });
+                    positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\blankmarked.png"));
+                    positionPanel.setName("target");
+                    map[row][col] = positionPanel;
+                    positionPanel.addMouseListener(walkOnBlank(row,col));
+                }
+                else if(row==level.getBoxRow() && col== level.getBoxCol()){ //if it's the boxes starting position
+                    positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\crate.png"));
+                    positionPanel.setName("box");
+                    map[row][col] = positionPanel;
+                    positionPanel.addMouseListener(pushBox(row,col));
                 }
                 else { //if it's a blank
-                    positionPanel.add(new JLabel(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\blank.png")));
-                    positionPanel.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) { //mouselistner added on the green steps, that will add a tower on click
-                            walkOnBlank();
-                        }
-                    });
+                    positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\blank.png"));
+                    positionPanel.setName("blank");
+                    map[row][col] = positionPanel;
+                    positionPanel.addMouseListener(walkOnBlank(row,col));
                 }
-                mainPanel.add(positionPanel);
+                centerComponent.add(positionPanel);
             }
         }
-
-        frame.setVisible(true);
-        //frame.add(panel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+        frame.repaint();
+        frame.revalidate();
     }
 
-
-    public void walkOnBlank() {
-        System.out.println("Flytta!");
-        //if the character is allowed to go there move there
-        //check if it's pushing a box
-            //check if the box is allowed to move there as well
-            //check if box gets stuck after move then lose
-        //change images at
+    @Override
+    public JComponent createCenterComponent() {
+        centerComponent = new JPanel();
+        centerComponent.setPreferredSize(new Dimension(200,200));
+        return centerComponent;
     }
 
-    public void pushBox() {
-        System.out.println("Push!");
-        //
+    public MouseListener walkOnBlank(int row, int col) {
+        System.out.println("BLANK");
+        MouseListener m = new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                if(player.equals(new Position(row+1,col)) || player.equals(new Position(row-1,col))||player.equals(new Position(row,col+1)) ||player.equals(new Position(row,col-1))){
+                    level.setPlayerRow(row);
+                    level.setPlayerCol(col);
+                    buildLevel();
+                }
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        };
+        return m;
+
+    }
+
+    public MouseListener pushBox(int row, int col) {
+
+        MouseListener m = new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("BOX");
+                //TODO sätt if statement i dessa med om nästa steg är the winning move, isåfall spela upp ett ljud och gå till en skärm med två knappar fortsätt eller inte
+                if(player.equals(new Position(row+1,col)) && level.getPassable()[row-1][col]){
+                    if(level.getTargetCol()==col && level.getTargetRow()==row-1){
+                        //TODO remove the target tile completely and replace it with the box
+                    }
+                    level.setPlayerCol(col);
+                    level.setPlayerRow(row);
+                    level.setBoxRow(row-1);
+                } else if (player.equals(new Position(row-1,col))&& level.getPassable()[row+1][col]) {
+                    if(level.getTargetCol()==col && level.getTargetRow()==row+1){
+
+                    }
+                    level.setPlayerCol(col);
+                    level.setPlayerRow(row);
+                    level.setBoxRow(row+1);
+                } else if (player.equals(new Position(row,col+1))&& level.getPassable()[row][col-1]) {
+                    if(level.getTargetCol()==col-1 && level.getTargetRow()==row){
+
+                    }
+                    level.setPlayerCol(col);
+                    level.setPlayerRow(row);
+                    level.setBoxCol(col-1);
+                } else if (player.equals(new Position(row,col-1))&& level.getPassable()[row][col+1]) {
+                    if(level.getTargetCol()==col+1 && level.getTargetRow()==row){
+
+                    }
+                    level.setPlayerCol(col);
+                    level.setPlayerRow(row);
+                    level.setBoxCol(col+1);
+                }
+                buildLevel();
+                if((!level.getPassable()[level.getBoxRow()][level.getBoxCol()+1]&&!level.getPassable()[level.getBoxRow()-1][level.getBoxCol()])||
+                        (!level.getPassable()[level.getBoxRow()][level.getBoxCol()+1]&&!level.getPassable()[level.getBoxRow()+1][level.getBoxCol()])||
+                        (!level.getPassable()[level.getBoxRow()][level.getBoxCol()-1]&&!level.getPassable()[level.getBoxRow()-1][level.getBoxCol()])||
+                        (!level.getPassable()[level.getBoxRow()][level.getBoxCol()-1]&&!level.getPassable()[level.getBoxRow()+1][level.getBoxCol()])){
+                    System.out.println("LOSER!!");
+                    //TODO sätt ljud
+                    //TODO fyll hela skärmen med en text och två knappar, fortsätt: börja om, exit: exit spel
+                }
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        };
+        return m;
     }
 
     public void finishLine() {
-        System.out.println("Finish!");
-        //
+
+        //check if player is at any tile around
+            //put player on this spot
+            //put blank where player was
+            //put box one step forward
+            //update positions in map
+            //make winning sound
+            //move on to next level
+        //else
+            // do nothing
+
     }
 
-    //main klassen som startar spelet
     public static void main(String[] args){
-        Level level = Level.level1();
-        Sokoban l = new Sokoban(level);
+        Level l = Level.level3();
+        Sokoban m = new Sokoban(l);
+
     }
 }
