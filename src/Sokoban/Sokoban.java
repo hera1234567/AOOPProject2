@@ -30,29 +30,29 @@ public class Sokoban extends Frame{
             for (int col = 0; col < level.getWidth(); col++) {
                 JLabel positionPanel = new JLabel();
                 if(!level.getPassable()[row][col]){ //if there is wall
-                    positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\wall.png"));
+                    positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Sokoban/icons/wall.png"));
                     positionPanel.setName("wall");
                     map[row][col] = positionPanel;
                 }
                 else if(row==level.getPlayerRow() && col==level.getPlayerCol()){ //if there its the starting position for the player
-                    positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\player.png"));
+                    positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Sokoban/icons/player.png"));
                     positionPanel.setName("player");
                     map[row][col] = positionPanel;
                 }
                 else if(row==level.getTargetRow() && col== level.getTargetCol()){ //if it's the targets position
-                    positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\blankmarked.png"));
+                    positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Sokoban/icons/blankmarked.png"));
                     positionPanel.setName("target");
                     map[row][col] = positionPanel;
                     positionPanel.addMouseListener(walkOnBlank(row,col));
                 }
                 else if(row==level.getBoxRow() && col== level.getBoxCol()){ //if it's the boxes starting position
-                    positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\crate.png"));
+                    positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Sokoban/icons/crate.png"));
                     positionPanel.setName("box");
                     map[row][col] = positionPanel;
                     positionPanel.addMouseListener(pushBox(row,col));
                 }
                 else { //if it's a blank
-                    positionPanel.setIcon(new ImageIcon("C:\\Users\\hanna\\IdeaProjects\\AOOPProject\\src\\Sokoban\\icons\\blank.png"));
+                    positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Sokoban/icons/blank.png "));
                     positionPanel.setName("blank");
                     map[row][col] = positionPanel;
                     positionPanel.addMouseListener(walkOnBlank(row,col));
@@ -119,6 +119,8 @@ public class Sokoban extends Frame{
                 if(player.equals(new Position(row+1,col)) && level.getPassable()[row-1][col]){
                     if(level.getTargetCol()==col && level.getTargetRow()==row-1){
                         //TODO remove the target tile completely and replace it with the box
+                        //skapa en flagga för the winning move som säger om den ska skapa en target icon eller ej
+                                //om den är raised ska lådan stå där istället
                     }
                     level.setPlayerCol(col);
                     level.setPlayerRow(row);

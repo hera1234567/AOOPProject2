@@ -104,4 +104,6 @@ public class Level {
         return new Level(6,6,passable,2,1,4,5,2,2 );
     }
 
+
+
 }
