@@ -3,58 +3,63 @@ package Sokoban;
 import Test.src.Position;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import static Sokoban.Level.*;
+
 public class Sokoban extends Frame{
     private JPanel centerComponent;
-    private Level level;
-    private JLabel[][] map;
+    private JPanel losewin = new JPanel();
+    private int lvlCounter;
     private GridLayout grid;
-    private Position player;
+    private Level current;
+    private boolean winFlag;
 
-
-    public Sokoban(Level level){
-        this.level = level;
-        map = new JLabel[level.getHeight()][level.getWidth()];
+    public Sokoban(){
+        current = level1();
+        lvlCounter=0;
         buildLevel();
+        winFlag = false;
     }
 
     private void buildLevel(){
-        grid = new GridLayout(level.getHeight(),level.getWidth());
+        losewin.removeAll();
+        grid = new GridLayout(current.getHeight(),current.getWidth());
         centerComponent.removeAll();
         centerComponent.setLayout(grid);
-        player = new Position(level.getPlayerRow(), level.getPlayerCol());
 
-        for (int row = 0; row < level.getHeight(); row++) {
-            for (int col = 0; col < level.getWidth(); col++) {
+        for (int row = 0; row < current.getHeight(); row++) {
+            for (int col = 0; col < current.getWidth(); col++) {
                 JLabel positionPanel = new JLabel();
-                if(!level.getPassable()[row][col]){ //if there is wall
+                if(!current.getPassable()[row][col]){ //if there is wall
                     positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Sokoban/icons/wall.png"));
                     positionPanel.setName("wall");
-                    map[row][col] = positionPanel;
                 }
-                else if(row==level.getPlayerRow() && col==level.getPlayerCol()){ //if there its the starting position for the player
+                else if(row==current.getPlayerRow() && col==current.getPlayerCol()){ //if there its the starting position for the player
                     positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Sokoban/icons/player.png"));
                     positionPanel.setName("player");
-                    map[row][col] = positionPanel;
                 }
-                else if(row==level.getTargetRow() && col== level.getTargetCol()){ //if it's the targets position
-                    positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Sokoban/icons/blankmarked.png"));
-                    positionPanel.setName("target");
-                    map[row][col] = positionPanel;
-                    positionPanel.addMouseListener(walkOnBlank(row,col));
+                else if(row==current.getTargetRow() && col== current.getTargetCol()){ //if it's the targets position
+                    if (!winFlag) {
+                        positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/Sokoban/icons/blankmarked.png"));
+                        positionPanel.setName("target");
+                        positionPanel.addMouseListener(walkOnBlank(row,col));
+                    }  else{
+                            positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Sokoban/icons/crate.png"));
+                            positionPanel.setName("box");
+                    }
                 }
-                else if(row==level.getBoxRow() && col== level.getBoxCol()){ //if it's the boxes starting position
+                else if(row==current.getBoxRow() && col== current.getBoxCol()){ //if it's the boxes starting position
                     positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Sokoban/icons/crate.png"));
                     positionPanel.setName("box");
-                    map[row][col] = positionPanel;
                     positionPanel.addMouseListener(pushBox(row,col));
                 }
                 else { //if it's a blank
                     positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Sokoban/icons/blank.png "));
                     positionPanel.setName("blank");
-                    map[row][col] = positionPanel;
                     positionPanel.addMouseListener(walkOnBlank(row,col));
                 }
                 centerComponent.add(positionPanel);
@@ -62,6 +67,88 @@ public class Sokoban extends Frame{
         }
         frame.repaint();
         frame.revalidate();
+        if(winFlag)
+            losewin();
+    }
+
+    public void losewin (){
+        losewin.removeAll();
+        if (winFlag) { // if game is won
+            BoxLayout box = new BoxLayout(losewin, BoxLayout.Y_AXIS);
+            losewin.setLayout(box);
+            JLabel t = new JLabel();
+            if(lvlCounter!= levels.length-1){
+            t.setText("YOU MADE IT!");
+            JButton eastButton = new JButton("Next level");
+            eastButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    lvlCounter++;
+                    current= new Level(Level.levels[lvlCounter].getHeight(), Level.levels[lvlCounter].getWidth(), Level.levels[lvlCounter].getPassable(),
+                            Level.levels[lvlCounter].getPlayerRow(), Level.levels[lvlCounter].getPlayerCol(),
+                            Level.levels[lvlCounter].getTargetRow(), Level.levels[lvlCounter].getTargetCol(),
+                            Level.levels[lvlCounter].getBoxRow(), Level.levels[lvlCounter].getBoxCol());
+                    winFlag=false;
+                buildLevel();
+                }});
+
+            JPanel buttons = new JPanel();
+            buttons.add(eastButton);
+            losewin.add(t);
+            losewin.add(buttons);
+            frame.add(losewin);
+            } else {
+                t.setText("YOU FINISHED THE GAME!");
+                JButton eastButton = new JButton("Restart Game");
+                eastButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        lvlCounter=0;
+                        current= new Level(Level.levels[lvlCounter].getHeight(), Level.levels[lvlCounter].getWidth(), Level.levels[lvlCounter].getPassable(),
+                                Level.levels[lvlCounter].getPlayerRow(), Level.levels[lvlCounter].getPlayerCol(),
+                                Level.levels[lvlCounter].getTargetRow(), Level.levels[lvlCounter].getTargetCol(),
+                                Level.levels[lvlCounter].getBoxRow(), Level.levels[lvlCounter].getBoxCol());
+                        winFlag=false;
+                        buildLevel();
+                    }});
+
+                JPanel buttons = new JPanel();
+                buttons.add(eastButton);
+                losewin.add(t);
+                losewin.add(buttons);
+                frame.add(losewin);
+                }
+
+        }
+
+        if (!winFlag) { // if game is lost
+            BoxLayout box = new BoxLayout(losewin, BoxLayout.Y_AXIS);
+            losewin.setLayout(box);
+            JLabel t = new JLabel();
+            t.setText("You lost the game :(");
+            JButton eastButton = new JButton("Restart level");
+            eastButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    current= new Level(Level.levels[lvlCounter].getHeight(), Level.levels[lvlCounter].getWidth(), Level.levels[lvlCounter].getPassable(),
+                            Level.levels[lvlCounter].getPlayerRow(), Level.levels[lvlCounter].getPlayerCol(),
+                            Level.levels[lvlCounter].getTargetRow(), Level.levels[lvlCounter].getTargetCol(),
+                            Level.levels[lvlCounter].getBoxRow(), Level.levels[lvlCounter].getBoxCol());
+                    buildLevel();
+                }});
+
+            JPanel buttons = new JPanel();
+            buttons.add(eastButton);
+            losewin.add(t);
+            losewin.add(buttons);
+            frame.add(losewin);
+        }
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+        System.out.println(winFlag);
+
     }
 
     @Override
@@ -72,14 +159,16 @@ public class Sokoban extends Frame{
     }
 
     public MouseListener walkOnBlank(int row, int col) {
-        System.out.println("BLANK");
         MouseListener m = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
 
-                if(player.equals(new Position(row+1,col)) || player.equals(new Position(row-1,col))||player.equals(new Position(row,col+1)) ||player.equals(new Position(row,col-1))){
-                    level.setPlayerRow(row);
-                    level.setPlayerCol(col);
+                if(current.getPlayerRow()==row+1 && current.getPlayerCol()==col
+                        ||current.getPlayerRow()==row-1 && current.getPlayerCol()==col
+                        ||current.getPlayerRow()==row && current.getPlayerCol()==col+1
+                        ||current.getPlayerRow()==row && current.getPlayerCol()==col-1 ){
+                    current.setPlayerRow(row);
+                    current.setPlayerCol(col);
                     buildLevel();
                 }
 
@@ -114,49 +203,62 @@ public class Sokoban extends Frame{
         MouseListener m = new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("BOX");
                 //TODO sätt if statement i dessa med om nästa steg är the winning move, isåfall spela upp ett ljud och gå till en skärm med två knappar fortsätt eller inte
-                if(player.equals(new Position(row+1,col)) && level.getPassable()[row-1][col]){
-                    if(level.getTargetCol()==col && level.getTargetRow()==row-1){
-                        //TODO remove the target tile completely and replace it with the box
-                        //skapa en flagga för the winning move som säger om den ska skapa en target icon eller ej
-                                //om den är raised ska lådan stå där istället
+                if(current.getPlayerRow()==row+1 && current.getPlayerCol()==col && current.getPassable()[row-1][col]){
+                    if(current.getTargetCol()==col && current.getTargetRow()==row-1){
+                        winFlag = true;
+                        current.setPlayerCol(col);
+                        current.setPlayerRow(row);
+                        current.setBoxRow(row-1);
+                        buildLevel();
                     }
-                    level.setPlayerCol(col);
-                    level.setPlayerRow(row);
-                    level.setBoxRow(row-1);
-                } else if (player.equals(new Position(row-1,col))&& level.getPassable()[row+1][col]) {
-                    if(level.getTargetCol()==col && level.getTargetRow()==row+1){
-
+                    current.setPlayerCol(col);
+                    current.setPlayerRow(row);
+                    current.setBoxRow(row-1);
+                } else if (current.getPlayerRow()==row-1 && current.getPlayerCol()==col && current.getPassable()[row+1][col]) {
+                    if(current.getTargetCol()==col && current.getTargetRow()==row+1){
+                        winFlag = true;
+                        current.setPlayerCol(col);
+                        current.setPlayerRow(row);
+                        current.setBoxRow(row+1);
+                        buildLevel();
                     }
-                    level.setPlayerCol(col);
-                    level.setPlayerRow(row);
-                    level.setBoxRow(row+1);
-                } else if (player.equals(new Position(row,col+1))&& level.getPassable()[row][col-1]) {
-                    if(level.getTargetCol()==col-1 && level.getTargetRow()==row){
-
+                    current.setPlayerCol(col);
+                    current.setPlayerRow(row);
+                    current.setBoxRow(row+1);
+                } else if (current.getPlayerRow()==row && current.getPlayerCol()==col+1 && current.getPassable()[row][col-1]) {
+                    if(current.getTargetCol()==col-1 && current.getTargetRow()==row){
+                        winFlag = true;
+                        current.setPlayerCol(col);
+                        current.setPlayerRow(row);
+                        current.setBoxCol(col-1);
+                        buildLevel();
                     }
-                    level.setPlayerCol(col);
-                    level.setPlayerRow(row);
-                    level.setBoxCol(col-1);
-                } else if (player.equals(new Position(row,col-1))&& level.getPassable()[row][col+1]) {
-                    if(level.getTargetCol()==col+1 && level.getTargetRow()==row){
-
+                    current.setPlayerCol(col);
+                    current.setPlayerRow(row);
+                    current.setBoxCol(col-1);
+                } else if (current.getPlayerRow()==row && current.getPlayerCol()==col-1 && current.getPassable()[row][col+1]) {
+                    if(current.getTargetCol()==col+1 && current.getTargetRow()==row){
+                        winFlag = true;
+                        current.setPlayerCol(col);
+                        current.setPlayerRow(row);
+                        current.setBoxCol(col+1);
+                        buildLevel();
                     }
-                    level.setPlayerCol(col);
-                    level.setPlayerRow(row);
-                    level.setBoxCol(col+1);
+                    current.setPlayerCol(col);
+                    current.setPlayerRow(row);
+                    current.setBoxCol(col+1);
                 }
                 buildLevel();
-                if((!level.getPassable()[level.getBoxRow()][level.getBoxCol()+1]&&!level.getPassable()[level.getBoxRow()-1][level.getBoxCol()])||
-                        (!level.getPassable()[level.getBoxRow()][level.getBoxCol()+1]&&!level.getPassable()[level.getBoxRow()+1][level.getBoxCol()])||
-                        (!level.getPassable()[level.getBoxRow()][level.getBoxCol()-1]&&!level.getPassable()[level.getBoxRow()-1][level.getBoxCol()])||
-                        (!level.getPassable()[level.getBoxRow()][level.getBoxCol()-1]&&!level.getPassable()[level.getBoxRow()+1][level.getBoxCol()])){
-                    System.out.println("LOSER!!");
-                    //TODO sätt ljud
-                    //TODO fyll hela skärmen med en text och två knappar, fortsätt: börja om, exit: exit spel
-                }
+               if(((!current.getPassable()[current.getBoxRow()][current.getBoxCol()+1]&&!current.getPassable()[current.getBoxRow()-1][current.getBoxCol()]) && !(current.getTargetRow()==row-1 && current.getTargetCol()==col && current.getPassable()[row-1][col]))||
+                       ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()+1]&&!current.getPassable()[current.getBoxRow()+1][current.getBoxCol()]) && !(current.getTargetRow()==row+1 && current.getTargetCol()==col && current.getPassable()[row+1][col]))||
+                       ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()-1]&&!current.getPassable()[current.getBoxRow()-1][current.getBoxCol()]) && !(current.getTargetRow()==row && current.getTargetCol()==col-1 && current.getPassable()[row][col-1]))||
+                       ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()-1]&&!current.getPassable()[current.getBoxRow()+1][current.getBoxCol()]) && !(current.getTargetRow()==row && current.getTargetCol()==col+1 && current.getPassable()[row][col+1]))){
 
+                   losewin();
+                    //TODO sätt ljud
+                    //TODO kolla om det är winning move först
+                }
             }
 
             @Override
@@ -197,8 +299,8 @@ public class Sokoban extends Frame{
     }
 
     public static void main(String[] args){
-        Level l = Level.level3();
-        Sokoban m = new Sokoban(l);
+        Level l = level3();
+        Sokoban m = new Sokoban();
 
     }
 }
