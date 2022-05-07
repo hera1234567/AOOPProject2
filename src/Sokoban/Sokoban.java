@@ -299,7 +299,6 @@ public class Sokoban extends Frame{
     }
 
     public static void main(String[] args){
-        Level l = level3();
         Sokoban m = new Sokoban();
 
     }

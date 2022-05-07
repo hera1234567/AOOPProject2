@@ -12,7 +12,7 @@ public class Level {
     private int boxRow;
     private int boxCol;
     private boolean [][] passable;
-    public static Level[] levels= {level1(), level2(), level3()};
+    public static Level[] levels= {level1(), level2(), level3(),level4()};
 
     public Level(int height, int width, boolean[][] passable,
                              int playerRow, int playerCol,
@@ -95,14 +95,14 @@ public class Level {
 
     public static Level level4(){
         boolean[][] passable = {
-                {false,false,false,false,false,false},
-                {false,true,true,true,true,false},
-                {false,true,true,true,true,false},
-                {false,true,true,true,true,false},
-                {false,true,true,true,true,false},
-                {false,false,false,false,false,false}
+                {false,false,false,false,false,false,false},
+                {false,true,true,false,true,true,false},
+                {false,true,true,true,true,true,false},
+                {false,true,false,false,true,true,false},
+                {false,true,true,true,true,true,false},
+                {false,false,false,false,false,false,false}
         };
-        return new Level(6,6,passable,2,1,4,5,2,2 );
+        return new Level(6,7,passable,2,1,4,1,2,2 );
     }
 
 
