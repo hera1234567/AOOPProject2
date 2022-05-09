@@ -16,9 +16,6 @@ public abstract class Frame extends JFrame{
 
     public abstract JComponent createCenterComponent();
 
-
-
-
     public Frame(){
         frame.setLayout(new BoxLayout(frame.getContentPane(),BoxLayout.Y_AXIS));
         JPanel panel = new JPanel();

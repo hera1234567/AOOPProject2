@@ -10,12 +10,14 @@ public class Sokoban {
     public static int lvlCounter;
     public static Level current;
     private static boolean winFlag;
+    private static boolean loseFlag;
     //endregion
 
     public Sokoban() {
         lvlCounter = 0;
         current = setLevel(lvlCounter);
         winFlag = false;
+        loseFlag = false;
     }
 
     //region observers & add
@@ -24,7 +26,7 @@ public class Sokoban {
     public void addObserver(Observer so) {
         observers.add(so);
         for (Observer o : observers)
-            o.updateCurrentState(current, winFlag, lvlCounter);
+            o.updateCurrentState(current, loseFlag, winFlag, lvlCounter);
     }
     //endregion
 
@@ -49,7 +51,7 @@ public class Sokoban {
             current.setPlayerCol(current.getPlayerCol() + 1);
             current.setBoxCol(current.getBoxCol() + 1);
             if (!winFlag)
-            checkLostGame(current.getPlayerRow(), current.getPlayerCol());
+            checkLostGame();
             //TODO kalla funktion som kollar om det är vägg på båda sidorna
             //Check if there's a wall if there wasn't a box
         } else if (current.getPassable()[current.getPlayerRow()][current.getPlayerCol() + 1]) {
@@ -58,7 +60,7 @@ public class Sokoban {
         }
 
         for (Observer o : observers)
-            o.updateCurrentState(current, winFlag, lvlCounter);
+            o.updateCurrentState(current, winFlag, loseFlag, lvlCounter);
     }
 
     public static void walkLeft() {
@@ -72,7 +74,7 @@ public class Sokoban {
             System.out.println("Walk left with box");
             current.setPlayerCol(current.getPlayerCol() - 1);
             current.setBoxCol(current.getBoxCol() - 1);
-            checkLostGame(current.getPlayerRow(), current.getPlayerCol());
+            checkLostGame();
             //TODO kalla funktion som kollar om det är vägg på båda sidorna
             //Check if there's a wall if there wasn't a box
         } else if (current.getPassable()[current.getPlayerRow()][current.getPlayerCol() - 1]) {
@@ -81,7 +83,7 @@ public class Sokoban {
         }
 
         for (Observer o : observers)
-            o.updateCurrentState(current, winFlag, lvlCounter);
+            o.updateCurrentState(current, winFlag, loseFlag, lvlCounter);
     }
 
     public static void walkDown() {
@@ -95,7 +97,7 @@ public class Sokoban {
             System.out.println("Walk down with box");
             current.setPlayerRow(current.getPlayerRow() + 1);
             current.setBoxRow(current.getBoxRow() + 1);
-            checkLostGame(current.getPlayerRow(), current.getPlayerCol());
+            checkLostGame();
             //TODO kalla funktion som kollar om det är vägg på båda sidorna
             //Check if there's a wall if there wasn't a box
         } else if (current.getPassable()[current.getPlayerRow() +1][current.getPlayerCol()]) {
@@ -104,7 +106,7 @@ public class Sokoban {
         }
 
         for (Observer o : observers)
-            o.updateCurrentState(current, winFlag, lvlCounter);
+            o.updateCurrentState(current, winFlag, loseFlag, lvlCounter);
     }
 
     public static void walkUp() {
@@ -119,7 +121,7 @@ public class Sokoban {
             System.out.println("Walk up with box");
             current.setPlayerRow(current.getPlayerRow() - 1);
             current.setBoxRow(current.getBoxRow() - 1);
-            checkLostGame(current.getPlayerRow(), current.getPlayerCol());
+            checkLostGame();
             //TODO kalla funktion som kollar om det är vägg på båda sidorna
             //Check if there's a wall if there wasn't a box
         } else if (current.getPassable()[current.getPlayerRow() - 1][current.getPlayerCol()]) {
@@ -128,17 +130,20 @@ public class Sokoban {
         }
 
         for (Observer o : observers)
-            o.updateCurrentState(current, winFlag, lvlCounter);
+            o.updateCurrentState(current, winFlag, loseFlag, lvlCounter);
     }
 
-    public static void checkLostGame(int row, int col){
+    public static void checkLostGame(){
         System.out.println("check lost game");
-        if(((!current.getPassable()[current.getBoxRow()][current.getBoxCol()+1]&&!current.getPassable()[current.getBoxRow()-1][current.getBoxCol()]) && !(current.getTargetRow()==row-1 && current.getTargetCol()==col && current.getPassable()[row-1][col]))||
-                ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()+1]&&!current.getPassable()[current.getBoxRow()+1][current.getBoxCol()]) && !(current.getTargetRow()==row+1 && current.getTargetCol()==col && current.getPassable()[row+1][col]))||
-                ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()-1]&&!current.getPassable()[current.getBoxRow()-1][current.getBoxCol()]) && !(current.getTargetRow()==row && current.getTargetCol()==col-1 && current.getPassable()[row][col-1]))||
-                ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()-1]&&!current.getPassable()[current.getBoxRow()+1][current.getBoxCol()]) && !(current.getTargetRow()==row && current.getTargetCol()==col+1 && current.getPassable()[row][col+1]))){
+        if((((!current.getPassable()[current.getBoxRow()][current.getBoxCol()+1]&&!current.getPassable()[current.getBoxRow()-1][current.getBoxCol()]) )||
+                ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()+1]&&!current.getPassable()[current.getBoxRow()+1][current.getBoxCol()]) )||
+                ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()-1]&&!current.getPassable()[current.getBoxRow()-1][current.getBoxCol()]) )||
+                ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()-1]&&!current.getPassable()[current.getBoxRow()+1][current.getBoxCol()])))
+                && !(current.getTargetRow()==current.getBoxRow() && current.getTargetCol()==current.getBoxCol())){
+            System.out.println("LOSER!");
+            loseFlag = true;
 
-           winFlag=false;}
+        }
     }
     //endregion
 
@@ -148,7 +153,7 @@ public class Sokoban {
         lvlCounter++;
         setLevel(lvlCounter);
         for (Observer o : observers)
-            o.updateCurrentState(current, winFlag, lvlCounter);
+            o.updateCurrentState(current, winFlag, loseFlag, lvlCounter);
 
     }
 
@@ -157,14 +162,14 @@ public class Sokoban {
         lvlCounter = 0;
         setLevel(lvlCounter);
         for (Observer o : observers)
-            o.updateCurrentState(current, winFlag, lvlCounter);
+            o.updateCurrentState(current, winFlag,loseFlag, lvlCounter);
     }
 
     static void restartLevel() {
         winFlag = false;
         setLevel(lvlCounter);
         for (Observer o : observers)
-            o.updateCurrentState(current, winFlag, lvlCounter);
+            o.updateCurrentState(current, winFlag,loseFlag, lvlCounter);
     }
     //endregion
 

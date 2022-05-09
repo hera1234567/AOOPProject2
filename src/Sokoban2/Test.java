@@ -4,7 +4,7 @@ public class Test {
 
     public static void main(String[] args) {
 
-        Observer2 obs = new Observer2();
+        PositionObserver obs = new PositionObserver();
         GraphicObserver sok = new GraphicObserver();
         Sokoban s = new Sokoban();
         s.addObserver(sok);

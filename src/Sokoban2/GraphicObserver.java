@@ -11,15 +11,19 @@ public class GraphicObserver extends Frame implements Observer {
     private int lvlCounter;
     private boolean winFlag = false;
     private Level current;
+    private boolean loseFlag = false;
 
     @Override
-    public void updateCurrentState(Level state, boolean winFlag, int lvlCounter) {
+    public void updateCurrentState(Level state, boolean winFlag, boolean loseFlag, int lvlCounter) {
         this.winFlag=winFlag;
+        this.loseFlag=loseFlag;
         this.lvlCounter=lvlCounter;
         this.current=state;
-        if (winFlag)
+        System.out.println(loseFlag);
+        if (winFlag||loseFlag) {
             losewin();
-   buildLevel(current);
+        }
+        buildLevel(current);
     }
 
     public void buildLevel(Level state){
@@ -82,7 +86,7 @@ public class GraphicObserver extends Frame implements Observer {
         losewin.setLayout(box);
         JLabel t = new JLabel();
         if (winFlag) { // if game is won
-            if(lvlCounter!= Level.levels.length-1){
+            if (lvlCounter != Level.levels.length - 1) {
                 t.setText("YOU MADE IT!");
                 JPanel buttons = new JPanel();
                 buttons.add(setTextButton("Next Level"));
@@ -98,8 +102,8 @@ public class GraphicObserver extends Frame implements Observer {
                 losewin.add(buttons);
                 frame.add(losewin);
             }
-
-            if (!winFlag) { // if game is lost
+        } else if (loseFlag) { // if game is lost
+                System.out.println("You lost");
                 t.setText("You lost the game :(");
 
                 JPanel buttons = new JPanel();
@@ -107,13 +111,13 @@ public class GraphicObserver extends Frame implements Observer {
                 losewin.add(t);
                 losewin.add(buttons);
                 frame.add(losewin);
-            }
+        }
 
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
         }
 
-    }
+
 }
 
