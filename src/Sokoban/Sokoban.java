@@ -1,12 +1,10 @@
 package Sokoban;
 
-import Test.src.Position;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static Sokoban.Level.*;
 
@@ -15,17 +13,31 @@ public class Sokoban extends Frame{
     private JPanel losewin = new JPanel();
     private int lvlCounter;
     private GridLayout grid;
-    private Level current;
+    public Level current;
     private boolean winFlag;
+    String step= "";
+
 
     public Sokoban(){
-        current = level1();
         lvlCounter=0;
+        current = new Level(Level.levels[lvlCounter].getHeight(), Level.levels[lvlCounter].getWidth(), Level.levels[lvlCounter].getPassable(),
+                Level.levels[lvlCounter].getPlayerRow(), Level.levels[lvlCounter].getPlayerCol(),
+                Level.levels[lvlCounter].getTargetRow(), Level.levels[lvlCounter].getTargetCol(),
+                Level.levels[lvlCounter].getBoxRow(), Level.levels[lvlCounter].getBoxCol());
+
         buildLevel();
         winFlag = false;
     }
 
-    private void buildLevel(){
+
+   /* public Signal() {
+            public void actionPerformed(ActionEvent e) {
+
+                for(Observer o : observers)
+                    o.updateSignal();
+        };
+    }*/
+    public void buildLevel(){
         losewin.removeAll();
         grid = new GridLayout(current.getHeight(),current.getWidth());
         centerComponent.removeAll();
@@ -63,12 +75,129 @@ public class Sokoban extends Frame{
                     positionPanel.addMouseListener(walkOnBlank(row,col));
                 }
                 centerComponent.add(positionPanel);
+
             }
         }
         frame.repaint();
         frame.revalidate();
         if(winFlag)
             losewin();
+    }
+
+    public void keys(KeyEvent e){
+        int keyCode = e.getKeyCode();
+        switch(keyCode){
+            case KeyEvent.VK_RIGHT:
+            {
+                System.out.println("höger");
+                //if it's walk on blank
+                if(current.getPassable()[current.getPlayerRow()][current.getPlayerCol()+1] && (current.getPlayerRow()!=current.getBoxRow()&&current.getPlayerCol()+1!= current.getBoxCol()))
+                {
+                    current.setPlayerRow(current.getPlayerRow());
+                    current.setPlayerCol(current.getPlayerCol()+1);
+                    buildLevel();
+                }
+                //if it pushes a box
+                if((current.getPlayerRow()== current.getBoxRow()
+                        && current.getPlayerCol()+1 == current.getBoxCol())
+                        && current.getPassable()[current.getBoxRow()][current.getBoxCol()+1])
+                {
+                    if(current.getBoxRow()==current.getTargetRow()&&current.getBoxCol()+1==current.getTargetCol())
+                    {
+                        winFlag=true;
+                    }
+                    current.setPlayerRow(current.getPlayerRow());
+                    current.setPlayerCol(current.getPlayerCol()+1);
+                    current.setBoxRow(current.getBoxRow());
+                    current.setBoxCol(current.getBoxCol()+1);
+                    buildLevel();
+                }
+                break;
+            }
+
+            case KeyEvent.VK_LEFT:
+            {
+                //if walk on blank back
+                if(current.getPassable()[current.getPlayerRow()][current.getPlayerCol()-1])
+                {
+                    current.setPlayerRow(current.getPlayerRow());
+                    current.setPlayerCol(current.getPlayerCol()-1);
+                    buildLevel();
+                }
+                //if push box back
+                if((current.getPlayerRow()== current.getBoxRow()
+                        && current.getPlayerCol()-1 == current.getBoxCol())
+                        && current.getPassable()[current.getBoxRow()][current.getBoxCol()-1])
+                {
+                    if(current.getBoxRow()==current.getTargetRow()&&current.getBoxCol()-1==current.getTargetCol())
+                    {
+                        winFlag=true;
+                    }
+                    current.setPlayerRow(current.getPlayerRow());
+                    current.setPlayerCol(current.getPlayerCol()-1);
+                    current.setBoxRow(current.getBoxRow());
+                    current.setBoxCol(current.getBoxCol()-1);
+                    buildLevel();
+                }
+            break;
+            }
+
+            case KeyEvent.VK_DOWN:
+            {
+                //if walk on blank back
+                if(current.getPassable()[current.getPlayerRow()+1][current.getPlayerCol()])
+                {
+                    current.setPlayerRow(current.getPlayerRow()+1);
+                    current.setPlayerCol(current.getPlayerCol());
+                    buildLevel();
+                }
+                //if push box down
+                if((current.getPlayerRow()== current.getBoxRow()+1
+                        && current.getPlayerCol() == current.getBoxCol())
+                        && current.getPassable()[current.getBoxRow()+1][current.getBoxCol()])
+                {
+                    if(current.getBoxRow()+1==current.getTargetRow()&&current.getBoxCol()==current.getTargetCol())
+                    {
+                        winFlag=true;
+                    }
+                    current.setPlayerRow(current.getPlayerRow()+1);
+                    current.setPlayerCol(current.getPlayerCol());
+                    current.setBoxRow(current.getBoxRow()+1);
+                    current.setBoxCol(current.getBoxCol());
+                    buildLevel();
+                }
+                break;
+            }
+
+            case KeyEvent.VK_UP:
+            {
+                System.out.println("upp");
+                //if walk on blank back
+                if(current.getPassable()[current.getPlayerRow()-1][current.getPlayerCol()])
+                {
+                    current.setPlayerRow(current.getPlayerRow()-1);
+                    current.setPlayerCol(current.getPlayerCol());
+                    buildLevel();
+                }
+                //if push box back
+                if((current.getPlayerRow()+1== current.getBoxRow()
+                        && current.getPlayerCol() == current.getBoxCol())
+                        && current.getPassable()[current.getBoxRow()-1][current.getBoxCol()])
+                {
+                    if(current.getBoxRow()-1==current.getTargetRow()&&current.getBoxCol()==current.getTargetCol())
+                    {
+                        winFlag=true;
+                    }
+                    current.setPlayerRow(current.getPlayerRow()-1);
+                    current.setPlayerCol(current.getPlayerCol());
+                    current.setBoxRow(current.getBoxRow()-1);
+                    current.setBoxCol(current.getBoxCol());
+                    buildLevel();
+                }
+                break;
+            }
+
+        }
     }
 
     public void losewin (){
@@ -110,6 +239,7 @@ public class Sokoban extends Frame{
                                 Level.levels[lvlCounter].getBoxRow(), Level.levels[lvlCounter].getBoxCol());
                         winFlag=false;
                         buildLevel();
+                        new Sokoban();
                     }});
 
                 JPanel buttons = new JPanel();
@@ -135,6 +265,7 @@ public class Sokoban extends Frame{
                             Level.levels[lvlCounter].getTargetRow(), Level.levels[lvlCounter].getTargetCol(),
                             Level.levels[lvlCounter].getBoxRow(), Level.levels[lvlCounter].getBoxCol());
                     buildLevel();
+                    new Sokoban();
                 }});
 
             JPanel buttons = new JPanel();
@@ -170,6 +301,7 @@ public class Sokoban extends Frame{
                     current.setPlayerRow(row);
                     current.setPlayerCol(col);
                     buildLevel();
+
                 }
 
             }
@@ -298,8 +430,8 @@ public class Sokoban extends Frame{
 
     }
 
-    public static void main(String[] args){
-        Sokoban m = new Sokoban();
+   /* public static void main(String[] args){
+         new Sokoban();
 
-    }
+    }*/
 }

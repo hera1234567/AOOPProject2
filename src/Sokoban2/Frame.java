@@ -1,17 +1,22 @@
-package Sokoban;
+package Sokoban2;
 
+/**
+ * Graphic Setup
+ * */
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 public abstract class Frame extends JFrame{
 
     private JLabel t = new JLabel();
+    private static JButton button= new JButton();
     public JComponent centercomponent;
     public JFrame frame = new JFrame();
+
     public abstract JComponent createCenterComponent();
+
+
 
 
     public Frame(){
@@ -23,30 +28,23 @@ public abstract class Frame extends JFrame{
         centercomponent = createCenterComponent();
         panel.add(centercomponent);
         panel.add(t);
+        button.addActionListener(Events.actionListenerUpdateLevel());
         frame.add(panel);
-        frame.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                keys(e);
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-
-            }
-        });
+        frame.addKeyListener(Events.keyListener());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
 
     }
 
-    protected abstract void keys(KeyEvent e);
+    public JButton setTextButton(String args){
+        button.setText(args);
+        return button;
+    }
 
+    public static JButton getTextButton(){
+        return button;
+    }
 
 }
+
