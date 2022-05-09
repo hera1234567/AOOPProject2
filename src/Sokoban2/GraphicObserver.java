@@ -71,7 +71,7 @@ public class GraphicObserver extends Frame implements Observer {
     @Override
     public JComponent createCenterComponent() {
         centerComponent = new JPanel();
-        centerComponent.setPreferredSize(new Dimension(200, 200));
+        centerComponent.setPreferredSize(new Dimension(300, 300));
         return centerComponent;
     }
 

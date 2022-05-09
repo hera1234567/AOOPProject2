@@ -12,6 +12,7 @@ public class Level {
     private boolean [][] passable;
     public static Level[] levels= {level1(), level2(), level3(),level4()};
 
+
     public Level(int height, int width, boolean[][] passable,
                              int playerRow, int playerCol,
                              int targetRow, int targetCol,
@@ -25,7 +26,6 @@ public class Level {
         this.boxRow = boxRow;
         this.targetCol = targetCol;
         this.targetRow = targetRow;
-
     }
 
     public int getPlayerRow() {return playerRow;}
