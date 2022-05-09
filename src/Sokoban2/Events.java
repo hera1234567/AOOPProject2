@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.lang.annotation.Annotation;
 
 public class Events {
 
@@ -52,8 +51,6 @@ public class Events {
 
 
     //endregion
-
-
 
     public static ActionListener actionListenerUpdateLevel() {
         JButton temp = Frame.getTextButton();

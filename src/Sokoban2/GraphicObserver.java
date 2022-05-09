@@ -17,7 +17,9 @@ public class GraphicObserver extends Frame implements Observer {
         this.winFlag=winFlag;
         this.lvlCounter=lvlCounter;
         this.current=state;
-        buildLevel(current);
+        if (winFlag)
+            losewin();
+   buildLevel(current);
     }
 
     public void buildLevel(Level state){

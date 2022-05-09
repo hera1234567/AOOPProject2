@@ -1,4 +1,6 @@
 package Sokoban2;
+import javax.swing.text.Position;
+
 
 /**
  * The game model

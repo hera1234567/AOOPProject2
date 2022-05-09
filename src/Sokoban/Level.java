@@ -1,7 +1,5 @@
 package Sokoban;
 
-import Test.src.Position;
-
 public class Level {
 
     private int height, width;
