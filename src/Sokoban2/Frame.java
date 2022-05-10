@@ -25,7 +25,6 @@ public abstract class Frame extends JFrame{
         centercomponent = createCenterComponent();
         panel.add(centercomponent);
         panel.add(t);
-        //button.addActionListener(Events.actionListenerUpdateLevel());
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

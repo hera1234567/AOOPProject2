@@ -1,6 +1,5 @@
 package Sokoban2;
 
-import javax.swing.text.Position;
 import java.util.ArrayList;
 import java.util.List;
 

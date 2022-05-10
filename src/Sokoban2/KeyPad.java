@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 public class KeyPad implements InputMethod, KeyListener, ActionListener {
     JFrame frame;
     JButton button;
+    private Controller c;
 
     public KeyPad(JFrame frame){
        this.frame=frame;
@@ -16,8 +17,6 @@ public class KeyPad implements InputMethod, KeyListener, ActionListener {
        button=Frame.getButton();
        button.addActionListener(this);
     }
-
-    private Controller c;
 
     @Override
     public void setController(Controller c) {
