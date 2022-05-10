@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Events {
-
+/*
     //region keyListener
     public static KeyListener keyListener() {
         KeyListener keyListener = new KeyListener() {
@@ -51,6 +51,8 @@ public class Events {
 
 
     //endregion
+
+ */
 
     public static ActionListener actionListenerUpdateLevel() {
         JButton temp = Frame.getTextButton();

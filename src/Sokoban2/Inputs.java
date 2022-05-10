@@ -1,7 +1,7 @@
 package Sokoban2;
 
 public class Inputs {
-
+/*
     //region different moves to make
     public static void walkRight() {
         Sokoban.walkRight();
@@ -20,6 +20,8 @@ public class Inputs {
     }
 
     //endregion
+
+ */
 
     //region update level
     public static void updateLevel(String next) {

@@ -4,13 +4,15 @@ import javax.swing.text.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sokoban {
+public class Sokoban implements Controller{
 
     //region static variables
     public static int lvlCounter;
     public static Level current;
     private static boolean winFlag;
     private static boolean loseFlag;
+
+    private static InputMethod m;
     //endregion
 
     public Sokoban() {
@@ -18,6 +20,11 @@ public class Sokoban {
         current = setLevel(lvlCounter);
         winFlag = false;
         loseFlag = false;
+        m = new KeyPad();
+    }
+
+    public void setInputMethod(InputMethod m){
+        this.m = m;
     }
 
     //region observers & add
@@ -39,7 +46,7 @@ public class Sokoban {
     }
 
     //region updates on same level
-    public static void walkRight() {
+    public void walkRight() {
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() == current.getBoxRow()
                 && current.getPlayerCol() + 1 == current.getBoxCol())
@@ -62,7 +69,7 @@ public class Sokoban {
             o.updateCurrentState(current, winFlag, loseFlag, lvlCounter);
     }
 
-    public static void walkLeft() {
+    public void walkLeft() {
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() == current.getBoxRow()
                 && current.getPlayerCol() - 1 == current.getBoxCol())
@@ -84,7 +91,7 @@ public class Sokoban {
             o.updateCurrentState(current, winFlag, loseFlag, lvlCounter);
     }
 
-    public static void walkDown() {
+    public void walkDown() {
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() +1 == current.getBoxRow()
                 && current.getPlayerCol()  == current.getBoxCol())
@@ -106,7 +113,7 @@ public class Sokoban {
             o.updateCurrentState(current, winFlag, loseFlag, lvlCounter);
     }
 
-    public static void walkUp() {
+    public void walkUp() {
         //if walk on blank back
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() - 1 == current.getBoxRow()
