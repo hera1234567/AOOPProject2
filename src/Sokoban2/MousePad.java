@@ -31,26 +31,24 @@ public class MousePad implements InputMethod, MouseListener, ActionListener {
     public void mousePressed(MouseEvent e) {
        int x = e.getXOnScreen();
        int y = e.getYOnScreen();
-       int xPlayer = Sokoban.current.getPlayerCol()*32+100;
-       int yPlayer = Sokoban.current.getPlayerRow()*32+100;
-        System.out.println("MOUSEPAD");
+       int xPlayer = frame.getWidth() -((Sokoban.current.getWidth()- Sokoban.current.getPlayerCol()) * 30 + 20 + Sokoban.current.getPlayerCol()*10);
+       int yPlayer = frame.getHeight() - ((Sokoban.current.getHeight() - Sokoban.current.getPlayerRow())*30 + 10 + Sokoban.current.getPlayerRow()*10);
         System.out.println("X: " + x + "    Y: " + y);
-        System.out.println("Player X: " + xPlayer + "    Player Y: " + yPlayer);
-
+        System.out.println("X player: " + xPlayer + "    Y player: " + yPlayer);
        /**Kolla om det är höger/vänster/upp/ner från gubben*/
-       if ((x>xPlayer+32 && x<xPlayer+64) && (y<yPlayer+32 && y>yPlayer)){
+       if ((x>xPlayer) && (y<yPlayer+50 && y>yPlayer-50)){
            c.walkRight();
            System.out.println("RIGHT");
        }
-       else if (x<xPlayer && (y<yPlayer+32 && y>yPlayer)){
+       else if (x<xPlayer && (y<yPlayer+50 && y>yPlayer-50)){
            c.walkLeft();
            System.out.println("LEFT");
        }
-       else if (y>yPlayer+32 && (x<xPlayer+32 && x>xPlayer)){
+       else if (y>yPlayer && (x<xPlayer+50 && x>xPlayer-50)){
            c.walkDown();
            System.out.println("DOWN");
        }
-       else if (y<yPlayer && (x<xPlayer+32 && x>xPlayer)){
+       else if (y<yPlayer && (x<xPlayer+50 && x>xPlayer-50)){
            c.walkUp();
            System.out.println("UP");
        }
