@@ -19,7 +19,6 @@ public class GraphicObserver extends Frame implements Observer {
         this.loseFlag=loseFlag;
         this.lvlCounter=lvlCounter;
         this.current=state;
-        System.out.println(loseFlag);
         if (winFlag)
             win();
 
@@ -29,7 +28,6 @@ public class GraphicObserver extends Frame implements Observer {
     }
 
     public void buildLevel(Level state){
-        System.out.println(state);
         losewin.removeAll();
         grid = new GridLayout(state.getHeight(),state.getWidth());
         centerComponent.removeAll();
@@ -78,7 +76,7 @@ public class GraphicObserver extends Frame implements Observer {
     @Override
     public JComponent createCenterComponent() {
         centerComponent = new JPanel();
-        centerComponent.setPreferredSize(new Dimension(300, 300));
+        centerComponent.setPreferredSize(new Dimension(250, 200));
         return centerComponent;
     }
 

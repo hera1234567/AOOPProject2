@@ -11,5 +11,6 @@ public class Test {
         s.addObserver(sok);
         s.addObserver(obs);
         s.addObserver(sound);
+        s.setInputMethod(new MousePad(Frame.getFrame()));
     }
 }

@@ -67,6 +67,8 @@ public class Sokoban implements Controller{
                 checkLostGame();
             //Check if there's a wall if there wasn't a box
         } else if (current.getPassable()[current.getPlayerRow()][current.getPlayerCol() + 1]) {
+            if (current.getPlayerCol()+1== current.getBoxCol() &&current.getPlayerRow()== current.getBoxRow())
+                return;
             System.out.println("Walk right on blank");
             current.setPlayerCol(current.getPlayerCol() + 1);
         }
@@ -90,6 +92,8 @@ public class Sokoban implements Controller{
             checkLostGame();
             //Check if there's a wall if there wasn't a box
         } else if (current.getPassable()[current.getPlayerRow()][current.getPlayerCol() - 1]) {
+            if (current.getPlayerCol()-1== current.getBoxCol() &&current.getPlayerRow()== current.getBoxRow())
+                return;
             System.out.println("Walk left on blank");
             current.setPlayerCol(current.getPlayerCol() - 1);
         }
@@ -113,6 +117,8 @@ public class Sokoban implements Controller{
             checkLostGame();
             //Check if there's a wall if there wasn't a box
         } else if (current.getPassable()[current.getPlayerRow() +1][current.getPlayerCol()]) {
+            if (current.getPlayerCol()== current.getBoxCol() &&current.getPlayerRow()+1== current.getBoxRow())
+                return;
             System.out.println("Walk down on blank");
             current.setPlayerRow(current.getPlayerRow() + 1);
         }
@@ -137,6 +143,8 @@ public class Sokoban implements Controller{
             checkLostGame();
             //Check if there's a wall if there wasn't a box
         } else if (current.getPassable()[current.getPlayerRow() - 1][current.getPlayerCol()]) {
+            if (current.getPlayerCol()== current.getBoxCol() &&current.getPlayerRow()-1== current.getBoxRow())
+                return;
             System.out.println("Walk up on blank");
             current.setPlayerRow(current.getPlayerRow() - 1);
         }
