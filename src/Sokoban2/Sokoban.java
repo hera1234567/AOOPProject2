@@ -13,6 +13,7 @@ public class Sokoban implements Controller{
     private static boolean loseFlag;
 
     private static InputMethod m;
+
     //endregion
 
     public Sokoban() {
@@ -36,6 +37,7 @@ public class Sokoban implements Controller{
             o.updateCurrentState(current, loseFlag, winFlag, lvlCounter);
     }
     //endregion
+
 
     private static Level setLevel(int i) {
         current = new Level(Level.levels[i].getHeight(), Level.levels[i].getWidth(), Level.levels[i].getPassable(),
