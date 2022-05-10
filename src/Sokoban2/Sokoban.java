@@ -52,7 +52,6 @@ public class Sokoban {
             current.setBoxCol(current.getBoxCol() + 1);
             if (!winFlag)
             checkLostGame();
-            //TODO kalla funktion som kollar om det är vägg på båda sidorna
             //Check if there's a wall if there wasn't a box
         } else if (current.getPassable()[current.getPlayerRow()][current.getPlayerCol() + 1]) {
             System.out.println("Walk right on blank");
@@ -75,7 +74,6 @@ public class Sokoban {
             current.setPlayerCol(current.getPlayerCol() - 1);
             current.setBoxCol(current.getBoxCol() - 1);
             checkLostGame();
-            //TODO kalla funktion som kollar om det är vägg på båda sidorna
             //Check if there's a wall if there wasn't a box
         } else if (current.getPassable()[current.getPlayerRow()][current.getPlayerCol() - 1]) {
             System.out.println("Walk left on blank");
@@ -98,7 +96,6 @@ public class Sokoban {
             current.setPlayerRow(current.getPlayerRow() + 1);
             current.setBoxRow(current.getBoxRow() + 1);
             checkLostGame();
-            //TODO kalla funktion som kollar om det är vägg på båda sidorna
             //Check if there's a wall if there wasn't a box
         } else if (current.getPassable()[current.getPlayerRow() +1][current.getPlayerCol()]) {
             System.out.println("Walk down on blank");
@@ -122,7 +119,6 @@ public class Sokoban {
             current.setPlayerRow(current.getPlayerRow() - 1);
             current.setBoxRow(current.getBoxRow() - 1);
             checkLostGame();
-            //TODO kalla funktion som kollar om det är vägg på båda sidorna
             //Check if there's a wall if there wasn't a box
         } else if (current.getPassable()[current.getPlayerRow() - 1][current.getPlayerCol()]) {
             System.out.println("Walk up on blank");
@@ -134,15 +130,12 @@ public class Sokoban {
     }
 
     public static void checkLostGame(){
-        System.out.println("check lost game");
         if((((!current.getPassable()[current.getBoxRow()][current.getBoxCol()+1]&&!current.getPassable()[current.getBoxRow()-1][current.getBoxCol()]) )||
                 ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()+1]&&!current.getPassable()[current.getBoxRow()+1][current.getBoxCol()]) )||
                 ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()-1]&&!current.getPassable()[current.getBoxRow()-1][current.getBoxCol()]) )||
                 ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()-1]&&!current.getPassable()[current.getBoxRow()+1][current.getBoxCol()])))
                 && !(current.getTargetRow()==current.getBoxRow() && current.getTargetCol()==current.getBoxCol())){
-            System.out.println("LOSER!");
             loseFlag = true;
-
         }
     }
     //endregion
@@ -166,7 +159,7 @@ public class Sokoban {
     }
 
     static void restartLevel() {
-        winFlag = false;
+        loseFlag = false;
         setLevel(lvlCounter);
         for (Observer o : observers)
             o.updateCurrentState(current, winFlag,loseFlag, lvlCounter);

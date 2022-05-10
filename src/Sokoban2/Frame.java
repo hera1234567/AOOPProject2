@@ -31,6 +31,7 @@ public abstract class Frame extends JFrame{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+        frame.setFocusable(true);
 
     }
 

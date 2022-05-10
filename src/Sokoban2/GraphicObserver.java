@@ -20,9 +20,11 @@ public class GraphicObserver extends Frame implements Observer {
         this.lvlCounter=lvlCounter;
         this.current=state;
         System.out.println(loseFlag);
-        if (winFlag||loseFlag) {
-            losewin();
-        }
+        if (winFlag)
+            win();
+
+        else if (loseFlag)
+            lose();
         buildLevel(current);
     }
 
@@ -69,7 +71,9 @@ public class GraphicObserver extends Frame implements Observer {
         frame.repaint();
         frame.validate();
         if(winFlag)
-            losewin();
+            win();
+        else if(loseFlag)
+            lose();
     }
 
     @Override
@@ -81,7 +85,7 @@ public class GraphicObserver extends Frame implements Observer {
 
 
     /**Set up for won or lost game*/
-    public void losewin () {
+    public void win () {
         BoxLayout box = new BoxLayout(losewin, BoxLayout.Y_AXIS);
         losewin.setLayout(box);
         JLabel t = new JLabel();
@@ -102,20 +106,27 @@ public class GraphicObserver extends Frame implements Observer {
                 losewin.add(buttons);
                 frame.add(losewin);
             }
-        } else if (loseFlag) { // if game is lost
-                System.out.println("You lost");
-                t.setText("You lost the game :(");
-
-                JPanel buttons = new JPanel();
-                buttons.add(setTextButton("Restart Level"));
-                losewin.add(t);
-                losewin.add(buttons);
-                frame.add(losewin);
         }
 
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
+        }
+
+        public void lose(){
+            BoxLayout box = new BoxLayout(losewin, BoxLayout.Y_AXIS);
+            losewin.setLayout(box);
+            JLabel t = new JLabel();
+            t.setText("You lost the game :(");
+            JPanel buttons = new JPanel();
+            buttons.add(setTextButton("Restart Level"));
+            losewin.add(t);
+            losewin.add(buttons);
+            frame.add(losewin);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.pack();
+            frame.setVisible(true);
+
         }
 
 
