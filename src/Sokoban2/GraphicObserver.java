@@ -67,7 +67,6 @@ public class GraphicObserver extends Frame implements Observer {
 
             }
         }
-        //TODO FIX
         frame.repaint();
         frame.validate();
         if(winFlag)
@@ -108,27 +107,26 @@ public class GraphicObserver extends Frame implements Observer {
             }
         }
 
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.pack();
-            frame.setVisible(true);
-        }
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
 
-        public void lose(){
-            BoxLayout box = new BoxLayout(losewin, BoxLayout.Y_AXIS);
-            losewin.setLayout(box);
-            JLabel t = new JLabel();
-            t.setText("You lost the game :(");
-            JPanel buttons = new JPanel();
-            buttons.add(setTextButton("Restart Level"));
-            losewin.add(t);
-            losewin.add(buttons);
-            frame.add(losewin);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.pack();
-            frame.setVisible(true);
+    public void lose(){
+        BoxLayout box = new BoxLayout(losewin, BoxLayout.Y_AXIS);
+        losewin.setLayout(box);
+        JLabel t = new JLabel();
+        t.setText("You lost the game :(");
+        JPanel buttons = new JPanel();
+        buttons.add(setTextButton("Restart Level"));
+        losewin.add(t);
+        losewin.add(buttons);
+        frame.add(losewin);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
 
-        }
+    }
 
 
 }
-

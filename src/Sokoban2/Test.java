@@ -6,8 +6,10 @@ public class Test {
 
         PositionObserver obs = new PositionObserver();
         GraphicObserver sok = new GraphicObserver();
+        SoundObserver sound = new SoundObserver();
         Sokoban s = new Sokoban();
         s.addObserver(sok);
         s.addObserver(obs);
+        s.addObserver(sound);
     }
 }

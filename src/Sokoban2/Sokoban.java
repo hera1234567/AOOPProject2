@@ -12,7 +12,10 @@ public class Sokoban implements Controller{
     private static boolean winFlag;
     private static boolean loseFlag;
 
-    private static InputMethod m;
+    //TODO FIXA SÅ ATT DET GÅR MED MOUSPAD OCKSÅ
+    private static InputMethod m = new KeyPad(Frame.getFrame());
+
+
     //endregion
 
     public Sokoban() {
@@ -20,11 +23,13 @@ public class Sokoban implements Controller{
         current = setLevel(lvlCounter);
         winFlag = false;
         loseFlag = false;
-        m = new KeyPad();
+       // m = new KeyPad(Frame.getFrame());
+        m.setController(this);
     }
 
     public void setInputMethod(InputMethod m){
         this.m = m;
+        m.setController(this);
     }
 
     //region observers & add
@@ -37,6 +42,7 @@ public class Sokoban implements Controller{
     }
     //endregion
 
+
     private static Level setLevel(int i) {
         current = new Level(Level.levels[i].getHeight(), Level.levels[i].getWidth(), Level.levels[i].getPassable(),
                 Level.levels[i].getPlayerRow(), Level.levels[i].getPlayerCol(),
@@ -47,6 +53,7 @@ public class Sokoban implements Controller{
 
     //region updates on same level
     public void walkRight() {
+        System.out.println("Höger");
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() == current.getBoxRow()
                 && current.getPlayerCol() + 1 == current.getBoxCol())
@@ -58,7 +65,7 @@ public class Sokoban implements Controller{
             current.setPlayerCol(current.getPlayerCol() + 1);
             current.setBoxCol(current.getBoxCol() + 1);
             if (!winFlag)
-            checkLostGame();
+                checkLostGame();
             //Check if there's a wall if there wasn't a box
         } else if (current.getPassable()[current.getPlayerRow()][current.getPlayerCol() + 1]) {
             System.out.println("Walk right on blank");
@@ -70,6 +77,7 @@ public class Sokoban implements Controller{
     }
 
     public void walkLeft() {
+        System.out.println("vänster");
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() == current.getBoxRow()
                 && current.getPlayerCol() - 1 == current.getBoxCol())
@@ -92,6 +100,7 @@ public class Sokoban implements Controller{
     }
 
     public void walkDown() {
+        System.out.println("ner");
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() +1 == current.getBoxRow()
                 && current.getPlayerCol()  == current.getBoxCol())
@@ -114,6 +123,7 @@ public class Sokoban implements Controller{
     }
 
     public void walkUp() {
+        System.out.println("upp");
         //if walk on blank back
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() - 1 == current.getBoxRow()
@@ -148,7 +158,7 @@ public class Sokoban implements Controller{
     //endregion
 
     //region restart or change of level
-    static void nextLevel() {
+    public void nextLevel() {
         winFlag = false;
         lvlCounter++;
         setLevel(lvlCounter);
@@ -157,7 +167,7 @@ public class Sokoban implements Controller{
 
     }
 
-    static void restartGame() {
+    public void restartGame() {
         winFlag = false;
         lvlCounter = 0;
         setLevel(lvlCounter);
@@ -165,7 +175,7 @@ public class Sokoban implements Controller{
             o.updateCurrentState(current, winFlag,loseFlag, lvlCounter);
     }
 
-    static void restartLevel() {
+    public void restartLevel() {
         loseFlag = false;
         setLevel(lvlCounter);
         for (Observer o : observers)

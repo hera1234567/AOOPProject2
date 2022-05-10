@@ -1,9 +1,15 @@
 package Sokoban2;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import javax.swing.*;
+import java.awt.event.*;
 
-public class MousePad implements InputMethod, MouseListener {
+public class MousePad implements InputMethod, MouseListener, ActionListener {
+    JFrame frame;
+
+    public MousePad(JFrame frame){
+        this.frame=frame;
+        frame.addMouseListener(this);
+    }
 
     private Controller c;
 
@@ -12,6 +18,8 @@ public class MousePad implements InputMethod, MouseListener {
         this.c = c;
     }
 
+
+
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -19,7 +27,26 @@ public class MousePad implements InputMethod, MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        /*int keyCode = e.getKeyCode();
+        switch (keyCode) {
+            case KeyEvent.VK_RIGHT: {
+                c.walkRight();
+                break;
+            }
+            case KeyEvent.VK_LEFT: {
+                c.walkLeft();
+                break;
+            }
+            case KeyEvent.VK_DOWN: {
+                c.walkDown();
+                break;
+            }
+            case KeyEvent.VK_UP: {
+                c.walkUp();
+                break;
+            }
+        }
+         */
     }
 
     @Override
@@ -35,5 +62,24 @@ public class MousePad implements InputMethod, MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JButton temp = Frame.getTextButton();
+        switch (temp.getText()) {
+            case "Restart Level": {
+                c.restartLevel();
+                break;
+            }
+            case "Next Level": {
+                c.nextLevel();
+                break;
+            }
+            case "Restart the game!": {
+                c.restartGame();
+                break;
+            }
+        }
     }
 }

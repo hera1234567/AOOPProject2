@@ -12,7 +12,7 @@ public abstract class Frame extends JFrame{
     private JLabel t = new JLabel();
     private static JButton button= new JButton();
     public JComponent centercomponent;
-    public JFrame frame = new JFrame();
+    public static JFrame frame = new JFrame();
 
     public abstract JComponent createCenterComponent();
 
@@ -25,9 +25,8 @@ public abstract class Frame extends JFrame{
         centercomponent = createCenterComponent();
         panel.add(centercomponent);
         panel.add(t);
-        button.addActionListener(Events.actionListenerUpdateLevel());
+        //button.addActionListener(Events.actionListenerUpdateLevel());
         frame.add(panel);
-        frame.addKeyListener(Events.keyListener());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -40,9 +39,10 @@ public abstract class Frame extends JFrame{
         return button;
     }
 
-    public static JButton getTextButton(){
-        return button;
-    }
+    public static JButton getTextButton(){return button;}
+
+    public static JFrame getFrame(){return frame;}
+
+    public static JButton getButton(){return button;}
 
 }
-
