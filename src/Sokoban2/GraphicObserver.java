@@ -67,7 +67,6 @@ public class GraphicObserver extends Frame implements Observer {
 
             }
         }
-        //TODO FIX
         frame.repaint();
         frame.validate();
         if(winFlag)

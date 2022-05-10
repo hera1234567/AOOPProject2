@@ -27,7 +27,6 @@ public abstract class Frame extends JFrame{
         panel.add(t);
         button.addActionListener(Events.actionListenerUpdateLevel());
         frame.add(panel);
-        frame.addKeyListener(Events.keyListener());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

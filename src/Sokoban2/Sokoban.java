@@ -49,6 +49,7 @@ public class Sokoban implements Controller{
 
     //region updates on same level
     public void walkRight() {
+        System.out.println("Höger");
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() == current.getBoxRow()
                 && current.getPlayerCol() + 1 == current.getBoxCol())
@@ -72,6 +73,7 @@ public class Sokoban implements Controller{
     }
 
     public void walkLeft() {
+        System.out.println("vänster");
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() == current.getBoxRow()
                 && current.getPlayerCol() - 1 == current.getBoxCol())
@@ -94,6 +96,7 @@ public class Sokoban implements Controller{
     }
 
     public void walkDown() {
+        System.out.println("ner");
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() +1 == current.getBoxRow()
                 && current.getPlayerCol()  == current.getBoxCol())
@@ -116,6 +119,7 @@ public class Sokoban implements Controller{
     }
 
     public void walkUp() {
+        System.out.println("upp");
         //if walk on blank back
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() - 1 == current.getBoxRow()
