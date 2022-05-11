@@ -2,18 +2,29 @@ package Sokoban2;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ReplayObserver extends Frame implements Observer{
     private GridLayout grid;
     JComponent centerComponent;
-    Level [] level;
+    Level [] level = new Level[20];
     int counter;
     @Override
     public void updateCurrentState(Level state, boolean winFlag, boolean loseFlag, int lvlCounter) {
         level[counter] = state;
         counter++;
+        System.out.println(level[counter]);
         if (winFlag||loseFlag)
         {
+            final int[] i = {0};
+            Timer t = new Timer(1000, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                   buildLevel(level[i[0]], winFlag);
+                    i[0] += 1;
+                }
+            });
+            t.start();
             //TODO sätta timer och buildLevel utifrån det
         }
     }

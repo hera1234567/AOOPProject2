@@ -10,13 +10,16 @@ public class Test {
 
     public static void main(String[] args) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
 
-        PositionObserver obs = new PositionObserver();
+       // PositionObserver obs = new PositionObserver();
         GraphicObserver sok = new GraphicObserver();
         SoundObserver sound = new SoundObserver();
+        //ReplayObserver replay= new ReplayObserver();
         Sokoban s = new Sokoban();
-        s.addObserver(sok);
-        s.addObserver(obs);
-        s.addObserver(sound);
         s.setInputMethod(new MousePad(Frame.getFrame()));
+        s.addObserver(sok);
+        //s.addObserver(obs);
+        s.addObserver(sound);
+        //s.addObserver(replay);
+
     }
 }

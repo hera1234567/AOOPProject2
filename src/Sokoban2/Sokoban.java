@@ -51,6 +51,7 @@ public class Sokoban implements Controller{
     }
 
     //region updates on same level
+
     public void walkRight() {
         System.out.println("Höger");
         //Checks if there's a box to be pushed
@@ -100,6 +101,36 @@ public class Sokoban implements Controller{
 
         for (Observer o : observers)
             o.updateCurrentState(current, winFlag, loseFlag, lvlCounter);
+    }
+
+    @Override
+    public void clickedPosition(int xMouse, int yMouse, int frameWidth, int frameHeight) {
+    int columns = (frameWidth/current.getWidth()) * current.getPlayerCol();
+    int oneCol = frameWidth/current.getWidth();
+    int oneRow = frameHeight/(current.getHeight());
+    int rows = (frameHeight/(current.getHeight()))*current.getPlayerRow();
+        System.out.println("ROWS : " + current.getHeight() + " FRAME : " + frameHeight + " ROWS:" + oneRow);
+        System.out.println("COLUMNS : " + current.getWidth() + " FRAME : " + frameWidth + " COLS : " + frameWidth/current.getWidth());
+        System.out.println("PLAYER POSITION: " + columns +","+ rows);
+        System.out.println("Going Where??: " + (columns) + "< " + xMouse +" and " + rows + "<" + yMouse +"<" + (rows+oneRow));
+        System.out.println("\nGoing Up: " + (rows+32) + "> " + yMouse +" and " + (columns+oneCol) + ">" + (xMouse-10) +">" + (columns-oneCol));
+
+        if (columns < (xMouse-10) && (rows<(yMouse-10) && (rows+oneRow)>(yMouse-10))){
+        System.out.println("\nGoing Right: " + columns + "< " + xMouse +" and " + rows + "<" + yMouse +"<" + (rows+oneRow));
+        walkRight();
+    }
+    else if (columns > xMouse && (rows<(yMouse-10) && (rows+oneRow)>(yMouse-10))){
+        System.out.println("\nGoing Left: " + columns + "< " + xMouse +" and " + rows + "<" + yMouse +"<" + (rows+oneRow));
+        walkLeft();
+    }
+    else if (rows+32 > yMouse && (columns+oneCol>(xMouse-10) && (columns-oneCol < (xMouse-10)))){
+            System.out.println("\nGoing Up: " + (rows+32) + "> " + yMouse +" and " + columns + ">" + (xMouse-10) +">" + (columns-oneCol));
+
+            walkUp();
+    }
+    else if ((rows-32) < yMouse && (columns+oneCol>(xMouse-10) && (columns-oneCol < (xMouse-10)))){
+        walkDown();
+    }
     }
 
     public void walkDown() {

@@ -5,6 +5,7 @@ public interface Controller {
     void walkDown();
     void walkRight();
     void walkLeft();
+    void clickedPosition(int xMouse,int yMouse,int frameWidth,int frameHeight);
     void nextLevel();
     void restartLevel();
     void restartGame();
