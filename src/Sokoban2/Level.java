@@ -1,9 +1,7 @@
 package Sokoban2;
-import javax.swing.text.Position;
-
 
 /**
- * The game model
+ * The game level models
  * */
 
 public class Level {

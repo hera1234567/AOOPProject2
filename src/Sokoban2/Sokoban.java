@@ -22,7 +22,7 @@ public class Sokoban implements Controller{
         current = setLevel(lvlCounter);
         winFlag = false;
         loseFlag = false;
-       // m = new KeyPad(Frame.getFrame());
+        // m = new KeyPad(Frame.getFrame());
         m.setController(this);
     }
 
