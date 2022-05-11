@@ -1,28 +1,27 @@
 package Sokoban2;
 
 import java.io.File;
-import java.io.IOException;
 import javax.sound.sampled.*;
+
+/***
+ * An observer class that plays a sound at events.
+ */
 
 public class SoundObserver implements Observer{
 
-    private Clip step;
-    private Clip win;
-    private Clip lose;
 
-    public SoundObserver() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        AudioInputStream stepAudio = AudioSystem.getAudioInputStream(new File(System.getProperty("user.dir") + "/src/Sokoban2/icons/step.wav"));
-        step = AudioSystem.getClip();
-        step.open(stepAudio);
-
-       /* AudioInputStream winAudio = AudioSystem.getAudioInputStream(new File(System.getProperty("user.dir") + "/src/Sokoban2/icons/win.wav"));
-        win = AudioSystem.getClip();
-        win.open(winAudio);
-
-        AudioInputStream loseAudio = AudioSystem.getAudioInputStream(new File(System.getProperty("user.dir") + "/src/Sokoban2/icons/lose.wav"));
-        lose = AudioSystem.getClip();
-        lose.open(loseAudio);*/
-
+    private static void play(String filename)
+    {
+        try
+        {
+            Clip audio = AudioSystem.getClip();
+            audio.open(AudioSystem.getAudioInputStream(new File(filename)));
+            audio.start();
+        }
+        catch (Exception exception)
+        {
+            exception.printStackTrace(System.out);
+        }
     }
 
     @Override
@@ -30,15 +29,15 @@ public class SoundObserver implements Observer{
 
         if (winFlag){
             //WIN SOUND
-            //win.start();
+            play(System.getProperty("user.dir") + "/src/Sokoban2/icons/win (1).wav");
         }
         else if (loseFlag){
             //LOSE SOUND
-            //lose.start();
+            play(System.getProperty("user.dir") + "/src/Sokoban2/icons/lose.wav");
         }
         else{
             //WALK SOUND
-            step.start();
+            play(System.getProperty("user.dir") + "/src/Sokoban2/icons/step.wav");
         }
     }
 }

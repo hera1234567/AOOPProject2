@@ -53,7 +53,6 @@ public class Sokoban implements Controller{
     //region updates on same level
 
     public void walkRight() {
-        System.out.println("Höger");
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() == current.getBoxRow()
                 && current.getPlayerCol() + 1 == current.getBoxCol())
@@ -61,7 +60,6 @@ public class Sokoban implements Controller{
             if (current.getBoxRow() == current.getTargetRow() && current.getBoxCol() + 1 == current.getTargetCol()) {
                 winFlag = true;
             }
-            System.out.println("Walk right with box");
             current.setPlayerCol(current.getPlayerCol() + 1);
             current.setBoxCol(current.getBoxCol() + 1);
             if (!winFlag)
@@ -70,7 +68,6 @@ public class Sokoban implements Controller{
         } else if (current.getPassable()[current.getPlayerRow()][current.getPlayerCol() + 1]) {
             if (current.getPlayerCol()+1== current.getBoxCol() &&current.getPlayerRow()== current.getBoxRow())
                 return;
-            System.out.println("Walk right on blank");
             current.setPlayerCol(current.getPlayerCol() + 1);
         }
 
@@ -79,7 +76,6 @@ public class Sokoban implements Controller{
     }
 
     public void walkLeft() {
-        System.out.println("vänster");
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() == current.getBoxRow()
                 && current.getPlayerCol() - 1 == current.getBoxCol())
@@ -87,7 +83,6 @@ public class Sokoban implements Controller{
             if (current.getBoxRow() == current.getTargetRow() && current.getBoxCol() - 1 == current.getTargetCol()) {
                 winFlag = true;
             }
-            System.out.println("Walk left with box");
             current.setPlayerCol(current.getPlayerCol() - 1);
             current.setBoxCol(current.getBoxCol() - 1);
             checkLostGame();
@@ -95,7 +90,6 @@ public class Sokoban implements Controller{
         } else if (current.getPassable()[current.getPlayerRow()][current.getPlayerCol() - 1]) {
             if (current.getPlayerCol()-1== current.getBoxCol() &&current.getPlayerRow()== current.getBoxRow())
                 return;
-            System.out.println("Walk left on blank");
             current.setPlayerCol(current.getPlayerCol() - 1);
         }
 
@@ -134,7 +128,6 @@ public class Sokoban implements Controller{
     }
 
     public void walkDown() {
-        System.out.println("ner");
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() +1 == current.getBoxRow()
                 && current.getPlayerCol()  == current.getBoxCol())
@@ -142,7 +135,6 @@ public class Sokoban implements Controller{
             if (current.getBoxRow()+1 == current.getTargetRow() && current.getBoxCol()  == current.getTargetCol()) {
                 winFlag = true;
             }
-            System.out.println("Walk down with box");
             current.setPlayerRow(current.getPlayerRow() + 1);
             current.setBoxRow(current.getBoxRow() + 1);
             checkLostGame();
@@ -150,7 +142,6 @@ public class Sokoban implements Controller{
         } else if (current.getPassable()[current.getPlayerRow() +1][current.getPlayerCol()]) {
             if (current.getPlayerCol()== current.getBoxCol() &&current.getPlayerRow()+1== current.getBoxRow())
                 return;
-            System.out.println("Walk down on blank");
             current.setPlayerRow(current.getPlayerRow() + 1);
         }
 
@@ -159,7 +150,6 @@ public class Sokoban implements Controller{
     }
 
     public void walkUp() {
-        System.out.println("upp");
         //if walk on blank back
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() - 1 == current.getBoxRow()
@@ -168,7 +158,6 @@ public class Sokoban implements Controller{
             if (current.getBoxRow() - 1 == current.getTargetRow() && current.getBoxCol() == current.getTargetCol()) {
                 winFlag = true;
             }
-            System.out.println("Walk up with box");
             current.setPlayerRow(current.getPlayerRow() - 1);
             current.setBoxRow(current.getBoxRow() - 1);
             checkLostGame();
@@ -176,7 +165,6 @@ public class Sokoban implements Controller{
         } else if (current.getPassable()[current.getPlayerRow() - 1][current.getPlayerCol()]) {
             if (current.getPlayerCol()== current.getBoxCol() &&current.getPlayerRow()-1== current.getBoxRow())
                 return;
-            System.out.println("Walk up on blank");
             current.setPlayerRow(current.getPlayerRow() - 1);
         }
 

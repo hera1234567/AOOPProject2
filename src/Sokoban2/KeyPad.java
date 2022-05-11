@@ -33,22 +33,18 @@ public class KeyPad implements InputMethod, KeyListener, ActionListener {
         int keyCode = e.getKeyCode();
         switch (keyCode) {
             case KeyEvent.VK_RIGHT: {
-                System.out.println("Höger");
                 c.walkRight();
                 break;
             }
             case KeyEvent.VK_LEFT: {
-                System.out.println("vänster");
                 c.walkLeft();
                 break;
             }
             case KeyEvent.VK_DOWN: {
-                System.out.println("ner");
                 c.walkDown();
                 break;
             }
             case KeyEvent.VK_UP: {
-                System.out.println("upp");
                 c.walkUp();
                 break;
             }

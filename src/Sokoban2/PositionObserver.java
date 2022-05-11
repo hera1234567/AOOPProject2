@@ -2,6 +2,10 @@ package Sokoban2;
 
 import javax.swing.*;
 
+/**
+ * An observer class that takes prints each move made by the player and the current level
+ */
+
 public class PositionObserver implements Observer{
 
     private JFrame frame;
