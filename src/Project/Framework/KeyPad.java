@@ -1,4 +1,4 @@
-package Sokoban2;
+package Project.Framework;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,14 +10,9 @@ import java.awt.event.KeyListener;
  * The type Key pad.
  */
 public class KeyPad implements InputMethod, KeyListener, ActionListener {
-    /**
-     * The Frame.
-     */
-    JFrame frame;
-    /**
-     * The Button.
-     */
-    JButton button;
+
+    private JFrame frame;
+    private JButton button;
     private Controller c;
 
     /**
@@ -28,7 +23,7 @@ public class KeyPad implements InputMethod, KeyListener, ActionListener {
     public KeyPad(JFrame frame){
        this.frame=frame;
        frame.addKeyListener(this);
-       button=Frame.getButton();
+       button= Frame.getButton();
        button.addActionListener(this);
     }
 
@@ -42,6 +37,14 @@ public class KeyPad implements InputMethod, KeyListener, ActionListener {
 
     }
 
+    /**
+     * Key pressed Event
+     *
+     * Responds to a pressed key, checks if the key is relevant and sends it to the corresponding
+     * method through controller
+     *
+     * @param e the KeyEvent
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();

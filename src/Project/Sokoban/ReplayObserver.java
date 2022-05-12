@@ -1,42 +1,55 @@
-package Sokoban2;
+package Project.Sokoban;
 
+import Project.Framework.Frame;
+import Project.Framework.Observer;
 import javax.swing.*;
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
- * The type Graphic observer.
+ * The type Replay observer.
  */
-public class GraphicObserver extends Frame implements Observer {
+public class ReplayObserver extends Frame implements Observer {
     private GridLayout grid;
-    private JPanel centerComponent;
-    private JPanel losewin = new JPanel();
-    private int lvlCounter;
-    private boolean winFlag = false;
-    private Level current;
-    private boolean loseFlag = false;
-
+    /**
+     * The Center component.
+     */
+    JComponent centerComponent;
+    /**
+     * The Level.
+     */
+    Level[] level = new Level[20];
+    /**
+     * The Counter.
+     */
+    int counter;
     @Override
     public void updateCurrentState(Level state, boolean winFlag, boolean loseFlag, int lvlCounter) {
-        this.winFlag=winFlag;
-        this.loseFlag=loseFlag;
-        this.lvlCounter=lvlCounter;
-        this.current=state;
-        if (winFlag)
-            win();
-
-        else if (loseFlag)
-            lose();
-        buildLevel(current);
+        level[counter] = state;
+        counter++;
+        System.out.println(level[counter]);
+        if (winFlag||loseFlag)
+        {
+            final int[] i = {0};
+            Timer t = new Timer(1000, new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                   buildLevel(level[i[0]], winFlag);
+                    i[0] += 1;
+                }
+            });
+            t.start();
+            //TODO sätta timer och buildLevel utifrån det
+        }
     }
 
     /**
      * Build level.
      *
-     * @param state the state
+     * @param state   the state
+     * @param winFlag the win flag
      */
-    public void buildLevel(Level state){
-        losewin.removeAll();
+    public void buildLevel(Level state, Boolean winFlag){
         grid = new GridLayout(state.getHeight(),state.getWidth());
         centerComponent.removeAll();
         centerComponent.setLayout(grid);
@@ -75,10 +88,6 @@ public class GraphicObserver extends Frame implements Observer {
         }
         frame.repaint();
         frame.validate();
-        if(winFlag)
-            win();
-        else if(loseFlag)
-            lose();
     }
 
     @Override
@@ -87,57 +96,4 @@ public class GraphicObserver extends Frame implements Observer {
         centerComponent.setPreferredSize(new Dimension(250, 200));
         return centerComponent;
     }
-
-
-    /**
-     * Set up for won or lost game
-     */
-    public void win () {
-        BoxLayout box = new BoxLayout(losewin, BoxLayout.Y_AXIS);
-        losewin.setLayout(box);
-        JLabel t = new JLabel();
-        if (winFlag) { // if game is won
-            if (lvlCounter != Level.levels.length - 1) {
-                t.setText("YOU MADE IT!");
-                JPanel buttons = new JPanel();
-                buttons.add(setTextButton("Next Level"));
-                losewin.add(t);
-                losewin.add(buttons);
-                frame.add(losewin);
-            } else {
-                t.setText("YOU FINISHED THE GAME!");
-
-                JPanel buttons = new JPanel();
-                buttons.add(setTextButton("Restart the game!"));
-                losewin.add(t);
-                losewin.add(buttons);
-                frame.add(losewin);
-            }
-        }
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-    /**
-     * Lose.
-     */
-    public void lose(){
-        BoxLayout box = new BoxLayout(losewin, BoxLayout.Y_AXIS);
-        losewin.setLayout(box);
-        JLabel t = new JLabel();
-        t.setText("You lost the game :(");
-        JPanel buttons = new JPanel();
-        buttons.add(setTextButton("Restart Level"));
-        losewin.add(t);
-        losewin.add(buttons);
-        frame.add(losewin);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-
-    }
-
-
 }

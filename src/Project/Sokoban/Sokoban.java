@@ -1,22 +1,22 @@
-package Sokoban2;
+package Project.Sokoban;
 
+import Project.Framework.*;
 import java.util.ArrayList;
 import java.util.List;
+
+@ClassPreamble(
+        author = "Hanna Martinsson, Amanda Törnqvist",
+        date = "12/5-2022"
+)
 
 /**
  * The type Sokoban.
  */
-public class Sokoban implements Controller{
+public class Sokoban implements Controller {
 
-    /**
-     * The constant lvlCounter.
-     */
 //region static variables
-    public static int lvlCounter;
-    /**
-     * The constant current.
-     */
-    public static Level current;
+    private static int lvlCounter;
+    private static Level current;
     private static boolean winFlag;
     private static boolean loseFlag;
 
@@ -39,7 +39,7 @@ public class Sokoban implements Controller{
     /**
      * Set input method.
      *
-     * @param m the m
+     * @param m the input method
      */
     public void setInputMethod(InputMethod m){
         this.m = m;
@@ -52,7 +52,7 @@ public class Sokoban implements Controller{
     /**
      * Add observer.
      *
-     * @param so the so
+     * @param so the observer to be added
      */
     public void addObserver(Observer so) {
         observers.add(so);

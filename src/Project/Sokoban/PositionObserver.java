@@ -1,11 +1,14 @@
-package Sokoban2;
+package Project.Sokoban;
+
+import Project.Framework.Observer;
 
 import javax.swing.*;
 
 /**
- * An observer class that takes prints each move made by the player and the current level
+ * The type Position observer.
+ * An observer class that takes prints each move made by the player (in columns and rows) and the current level
  */
-public class PositionObserver implements Observer{
+public class PositionObserver implements Observer {
 
     private JFrame frame;
     private JTextArea position;

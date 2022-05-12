@@ -1,14 +1,12 @@
-package Sokoban2;
+package Project.Framework;
 
-/**
- * Graphic Setup
- * */
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 /**
  * The type Frame.
+ * A basic graphic setup that can be extended
  */
 public abstract class Frame extends JFrame{
 
@@ -16,6 +14,7 @@ public abstract class Frame extends JFrame{
     private static JButton button= new JButton();
     /**
      * The Centercomponent.
+     * public instance variable that makes it possible to manipulate the graphics
      */
     public JComponent centercomponent;
     /**
@@ -25,7 +24,7 @@ public abstract class Frame extends JFrame{
 
     /**
      * Create center component j component.
-     *
+     * Method that defines centerComponent in class extending Frame
      * @return the j component
      */
     public abstract JComponent createCenterComponent();
@@ -53,7 +52,7 @@ public abstract class Frame extends JFrame{
     /**
      * Set text button j button.
      *
-     * @param args the args
+     * @param args text to be set on button
      * @return the j button
      */
     public JButton setTextButton(String args){

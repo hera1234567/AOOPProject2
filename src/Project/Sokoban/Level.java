@@ -1,4 +1,4 @@
-package Sokoban2;
+package Project.Sokoban;
 
 /**
  * The game level models
@@ -137,7 +137,7 @@ public class Level {
     /**
      * Get passable boolean [ ] [ ].
      *
-     * @return the boolean [ ] [ ]
+     * @return the boolean [ ] [ ], true if there isn't an obstacle
      */
     public boolean[][] getPassable() {return passable;}
 

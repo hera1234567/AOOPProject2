@@ -1,18 +1,14 @@
-package Sokoban2;
+package Project.Framework;
 
 import javax.swing.*;
-import javax.swing.text.Position;
-import java.awt.*;
 import java.awt.event.*;
 
 /**
  * The type Mouse pad.
  */
 public class MousePad implements InputMethod, MouseListener, ActionListener {
-    /**
-     * The Frame.
-     */
-    JFrame frame;
+
+    private JFrame frame;
 
     /**
      * Instantiates a new Mouse pad.
@@ -38,6 +34,14 @@ public class MousePad implements InputMethod, MouseListener, ActionListener {
 
     }
 
+    /**
+     * Mouse Pressed Event
+     *
+     * Responds to if the mouse has been pressed, takes the coordinates of the click as well as the current frame size,
+     * sends it to the corresponding method through controller.
+     *
+     * @param e the MouseEvent
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         int xMouse = e.getXOnScreen();

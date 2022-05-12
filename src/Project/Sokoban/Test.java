@@ -1,5 +1,7 @@
-package Sokoban2;
+package Project.Sokoban;
 
+import Project.Framework.Frame;
+import Project.Framework.MousePad;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;

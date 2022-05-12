@@ -1,14 +1,23 @@
-package Sokoban2;
+package Project.Sokoban;
 
+import Project.Framework.Observer;
+
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.io.File;
-import javax.sound.sampled.*;
 
-/***
+/**
+ * The type Sound observer.
  * An observer class that plays a sound at events.
  */
-public class SoundObserver implements Observer{
+public class SoundObserver implements Observer {
 
-
+/** Play.
+ *
+ * Plays the file given through the input
+ *
+ * @param filename , name of soundfile
+ */
     private static void play(String filename)
     {
         try
@@ -23,20 +32,21 @@ public class SoundObserver implements Observer{
         }
     }
 
+
     @Override
     public void updateCurrentState(Level state, boolean winFlag, boolean loseFlag, int lvlCounter) {
 
         if (winFlag){
             //WIN SOUND
-            play(System.getProperty("user.dir") + "/src/Sokoban2/icons/win (1).wav");
+            play(System.getProperty("user.dir") + "/src/Project/icons/win (1).wav");
         }
         else if (loseFlag){
             //LOSE SOUND
-            play(System.getProperty("user.dir") + "/src/Sokoban2/icons/lose.wav");
+            play(System.getProperty("user.dir") + "/src/Project/icons/lose.wav");
         }
         else{
             //WALK SOUND
-            play(System.getProperty("user.dir") + "/src/Sokoban2/icons/step.wav");
+            play(System.getProperty("user.dir") + "/src/Project/icons/step.wav");
         }
     }
 }
