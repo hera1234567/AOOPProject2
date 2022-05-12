@@ -17,7 +17,7 @@ import java.util.List;
 public class Sokoban implements Controller {
 
 
-//region static variables
+    //region static variables
     private static int lvlCounter;
     private static Level current;
     private static boolean winFlag;
@@ -50,7 +50,7 @@ public class Sokoban implements Controller {
     }
 
 
-//region observers & add
+    //region observers & add
     private static List<Observer> observers = new ArrayList<Observer>();
 
     /**

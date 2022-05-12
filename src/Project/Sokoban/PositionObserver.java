@@ -8,7 +8,7 @@ import javax.swing.*;
  * The type Position observer.
  * An observer class that takes prints each move made by the player (in columns and rows) and the current level
  */
-public class PositionObserver implements Observer {
+public class PositionObserver implements Observer<Level> {
 
     private JFrame frame;
     private JTextArea position;

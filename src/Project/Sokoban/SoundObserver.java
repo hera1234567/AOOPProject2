@@ -10,7 +10,7 @@ import java.io.File;
  * The type Sound observer.
  * An observer class that plays a sound at events.
  */
-public class SoundObserver implements Observer {
+public class SoundObserver implements Observer<Level> {
 
 /** Play.
  *

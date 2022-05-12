@@ -11,7 +11,7 @@ import java.awt.*;
  * The type Graphic observer.
  * An extention of Frame that defines the graphics
  */
-public class GraphicObserver extends Frame implements Observer {
+public class GraphicObserver extends Frame implements Observer<Level> {
     private GridLayout grid;
     private JPanel centerComponent;
     private JPanel losewin = new JPanel();
@@ -148,6 +148,5 @@ public class GraphicObserver extends Frame implements Observer {
         frame.setVisible(true);
 
     }
-
 
 }

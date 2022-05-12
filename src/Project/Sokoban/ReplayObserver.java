@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 /**
  * The type Replay observer.
  */
-public class ReplayObserver extends Frame implements Observer {
+public class ReplayObserver extends Frame implements Observer<Level> {
     private GridLayout grid;
     /**
      * The Center component.

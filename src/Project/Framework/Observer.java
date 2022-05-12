@@ -1,12 +1,12 @@
 package Project.Framework;
 
-import Project.Sokoban.Level;
+//import Project.Sokoban.Level;
 
 /**
  * Observer interface
  * Sends out updates to all classes implementing observer
  */
-public interface Observer {
+public interface Observer<T> {
     /**
      * Update current state.
      *
@@ -15,5 +15,5 @@ public interface Observer {
      * @param loseFlag   the lose flag
      * @param lvlCounter the level counter
      */
-    void updateCurrentState(Level state, boolean winFlag, boolean loseFlag, int lvlCounter);
+    void updateCurrentState(T state, boolean winFlag, boolean loseFlag, int lvlCounter);
 }
