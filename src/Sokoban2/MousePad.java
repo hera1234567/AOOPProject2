@@ -35,6 +35,7 @@ public class MousePad implements InputMethod, MouseListener, ActionListener {
         int frameHeight = frame.getHeight();
         c.clickedPosition(xMouse, yMouse, frameWidth, frameHeight);
     }
+
     @Override
     public void mouseReleased(MouseEvent e) {
 

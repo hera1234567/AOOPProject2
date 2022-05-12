@@ -107,8 +107,6 @@ public class Sokoban implements Controller{
         System.out.println("ROWS : " + current.getHeight() + " FRAME : " + frameHeight + " ROWS:" + oneRow);
         System.out.println("COLUMNS : " + current.getWidth() + " FRAME : " + frameWidth + " COLS : " + frameWidth/current.getWidth());
         System.out.println("PLAYER POSITION: " + columns +","+ rows);
-        System.out.println("Going Where??: " + (columns) + "< " + xMouse +" and " + rows + "<" + yMouse +"<" + (rows+oneRow));
-        System.out.println("\nGoing Up: " + (rows+32) + "> " + yMouse +" and " + (columns+oneCol) + ">" + (xMouse-10) +">" + (columns-oneCol));
 
         if (columns < (xMouse-10) && (rows<(yMouse-10) && (rows+oneRow)>(yMouse-10))){
         System.out.println("\nGoing Right: " + columns + "< " + xMouse +" and " + rows + "<" + yMouse +"<" + (rows+oneRow));
@@ -120,11 +118,11 @@ public class Sokoban implements Controller{
     }
     else if (rows+32 > yMouse && (columns+oneCol>(xMouse-10) && (columns-oneCol < (xMouse-10)))){
             System.out.println("\nGoing Up: " + (rows+32) + "> " + yMouse +" and " + columns + ">" + (xMouse-10) +">" + (columns-oneCol));
-
             walkUp();
     }
     else if ((rows-32) < yMouse && (columns+oneCol>(xMouse-10) && (columns-oneCol < (xMouse-10)))){
-        walkDown();
+            System.out.println("\nGoing Down: " + (rows-32) + "< " + yMouse +" and " + (columns+oneCol) + ">" + (xMouse-10) +">" + (columns-oneCol));
+            walkDown();
     }
     }
 
