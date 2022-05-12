@@ -29,31 +29,12 @@ public class MousePad implements InputMethod, MouseListener, ActionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-       int x = e.getXOnScreen();
-       int y = e.getYOnScreen();
-       int xPlayer = frame.getWidth() -((Sokoban.current.getWidth()- Sokoban.current.getPlayerCol()) * 30 + 20 + Sokoban.current.getPlayerCol()*10);
-       int yPlayer = frame.getHeight() - ((Sokoban.current.getHeight() - Sokoban.current.getPlayerRow())*30 + 10 + Sokoban.current.getPlayerRow()*10);
-        System.out.println("X: " + x + "    Y: " + y);
-        System.out.println("X player: " + xPlayer + "    Y player: " + yPlayer);
-       /**Kolla om det är höger/vänster/upp/ner från gubben*/
-       if ((x>xPlayer) && (y<yPlayer+50 && y>yPlayer-50)){
-           c.walkRight();
-           System.out.println("RIGHT");
-       }
-       else if (x<xPlayer && (y<yPlayer+50 && y>yPlayer-50)){
-           c.walkLeft();
-           System.out.println("LEFT");
-       }
-       else if (y>yPlayer && (x<xPlayer+50 && x>xPlayer-50)){
-           c.walkDown();
-           System.out.println("DOWN");
-       }
-       else if (y<yPlayer && (x<xPlayer+50 && x>xPlayer-50)){
-           c.walkUp();
-           System.out.println("UP");
-       }
+        int xMouse = e.getXOnScreen();
+        int yMouse = e.getYOnScreen();
+        int frameWidth = frame.getWidth();
+        int frameHeight = frame.getHeight();
+        c.clickedPosition(xMouse, yMouse, frameWidth, frameHeight);
     }
-
     @Override
     public void mouseReleased(MouseEvent e) {
 

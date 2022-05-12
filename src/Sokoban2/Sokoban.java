@@ -12,10 +12,11 @@ public class Sokoban implements Controller{
     private static boolean loseFlag;
 
     //TODO FIXA SÅ ATT DET GÅR MED MOUSPAD OCKSÅ
-    private static InputMethod m = new KeyPad(Frame.getFrame());
+    private InputMethod m = new KeyPad(Frame.getFrame());
 
 
     //endregion
+
 
     public Sokoban() {
         lvlCounter = 0;

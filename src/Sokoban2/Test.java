@@ -14,6 +14,7 @@ public class Test {
         GraphicObserver sok = new GraphicObserver();
         SoundObserver sound = new SoundObserver();
         Sokoban s = new Sokoban();
+        s.setInputMethod(new MousePad(Frame.getFrame()));
         s.addObserver(sok);
         s.addObserver(obs);
         s.addObserver(sound);
