@@ -11,16 +11,18 @@ import java.util.List;
 
 /**
  * The type Sokoban.
+ * This class collects info from the game model 'Level' and inputs and updates the game field,
+ * and sends out information about the changes made to all observers
  */
 public class Sokoban implements Controller {
+
 
 //region static variables
     private static int lvlCounter;
     private static Level current;
     private static boolean winFlag;
     private static boolean loseFlag;
-
-    //TODO FIXA SÅ ATT DET GÅR MED MOUSPAD OCKSÅ
+//TODO FIXA SÅ ATT DET GÅR MED MOUSPAD OCKSÅ
     private InputMethod m = new KeyPad(Frame.getFrame());
 
     //endregion
@@ -38,6 +40,7 @@ public class Sokoban implements Controller {
 
     /**
      * Set input method.
+     * also sets the chosen controller
      *
      * @param m the input method
      */
@@ -46,11 +49,14 @@ public class Sokoban implements Controller {
         m.setController(this);
     }
 
-    //region observers & add
+
+//region observers & add
     private static List<Observer> observers = new ArrayList<Observer>();
 
     /**
      * Add observer.
+     *
+     * Adds the observer to the list and sends out an update so all observers have the data directly from start
      *
      * @param so the observer to be added
      */
@@ -61,6 +67,14 @@ public class Sokoban implements Controller {
     }
     //endregion
 
+    /**
+     * Sets level.
+     *
+     * Creates a new Level that can be manipulated from the original model.
+     *
+     * @param i the level that wants to be reached
+     * @return the level
+     */
     private static Level setLevel(int i) {
         current = new Level(Level.levels[i].getHeight(), Level.levels[i].getWidth(), Level.levels[i].getPassable(),
                 Level.levels[i].getPlayerRow(), Level.levels[i].getPlayerCol(),
@@ -159,7 +173,6 @@ public class Sokoban implements Controller {
     }
 
     public void walkUp() {
-        //if walk on blank back
         //Checks if there's a box to be pushed
         if ((current.getPlayerRow() - 1 == current.getBoxRow()
                 && current.getPlayerCol() == current.getBoxCol())
@@ -183,6 +196,7 @@ public class Sokoban implements Controller {
 
     /**
      * Check lost game.
+     * Checks if the box has walls on 2 adjacent sides, and makes sure that the target isn't reached
      */
     public static void checkLostGame(){
         if((((!current.getPassable()[current.getBoxRow()][current.getBoxCol()+1]&&!current.getPassable()[current.getBoxRow()-1][current.getBoxCol()]) )||
