@@ -5,10 +5,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * The type Replay observer.
+ */
 public class ReplayObserver extends Frame implements Observer{
     private GridLayout grid;
+    /**
+     * The Center component.
+     */
     JComponent centerComponent;
+    /**
+     * The Level.
+     */
     Level [] level = new Level[20];
+    /**
+     * The Counter.
+     */
     int counter;
     @Override
     public void updateCurrentState(Level state, boolean winFlag, boolean loseFlag, int lvlCounter) {
@@ -29,6 +41,12 @@ public class ReplayObserver extends Frame implements Observer{
         }
     }
 
+    /**
+     * Build level.
+     *
+     * @param state   the state
+     * @param winFlag the win flag
+     */
     public void buildLevel(Level state, Boolean winFlag){
         grid = new GridLayout(state.getHeight(),state.getWidth());
         centerComponent.removeAll();

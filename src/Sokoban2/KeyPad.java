@@ -6,11 +6,25 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * The type Key pad.
+ */
 public class KeyPad implements InputMethod, KeyListener, ActionListener {
+    /**
+     * The Frame.
+     */
     JFrame frame;
+    /**
+     * The Button.
+     */
     JButton button;
     private Controller c;
 
+    /**
+     * Instantiates a new Key pad.
+     *
+     * @param frame the frame
+     */
     public KeyPad(JFrame frame){
        this.frame=frame;
        frame.addKeyListener(this);

@@ -5,13 +5,15 @@ import javax.swing.*;
 /**
  * An observer class that takes prints each move made by the player and the current level
  */
-
 public class PositionObserver implements Observer{
 
     private JFrame frame;
     private JTextArea position;
     private int level;
 
+    /**
+     * Instantiates a new Position observer.
+     */
     public PositionObserver() {
         level = 1;
         frame = new JFrame();

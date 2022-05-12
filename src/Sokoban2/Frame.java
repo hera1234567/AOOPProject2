@@ -7,15 +7,32 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * The type Frame.
+ */
 public abstract class Frame extends JFrame{
 
     private JLabel t = new JLabel();
     private static JButton button= new JButton();
+    /**
+     * The Centercomponent.
+     */
     public JComponent centercomponent;
+    /**
+     * The constant frame.
+     */
     public static JFrame frame = new JFrame();
 
+    /**
+     * Create center component j component.
+     *
+     * @return the j component
+     */
     public abstract JComponent createCenterComponent();
 
+    /**
+     * Instantiates a new Frame.
+     */
     public Frame(){
         frame.setLayout(new BoxLayout(frame.getContentPane(),BoxLayout.Y_AXIS));
         JPanel panel = new JPanel();
@@ -33,15 +50,36 @@ public abstract class Frame extends JFrame{
 
     }
 
+    /**
+     * Set text button j button.
+     *
+     * @param args the args
+     * @return the j button
+     */
     public JButton setTextButton(String args){
         button.setText(args);
         return button;
     }
 
+    /**
+     * Get text button j button.
+     *
+     * @return the j button
+     */
     public static JButton getTextButton(){return button;}
 
+    /**
+     * Get frame j frame.
+     *
+     * @return the j frame
+     */
     public static JFrame getFrame(){return frame;}
 
+    /**
+     * Get button j button.
+     *
+     * @return the j button
+     */
     public static JButton getButton(){return button;}
 
 }

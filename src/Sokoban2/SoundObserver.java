@@ -6,7 +6,6 @@ import javax.sound.sampled.*;
 /***
  * An observer class that plays a sound at events.
  */
-
 public class SoundObserver implements Observer{
 
 

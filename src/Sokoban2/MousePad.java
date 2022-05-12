@@ -5,9 +5,20 @@ import javax.swing.text.Position;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * The type Mouse pad.
+ */
 public class MousePad implements InputMethod, MouseListener, ActionListener {
+    /**
+     * The Frame.
+     */
     JFrame frame;
 
+    /**
+     * Instantiates a new Mouse pad.
+     *
+     * @param frame the frame
+     */
     public MousePad(JFrame frame){
         this.frame=frame;
         frame.addMouseListener(this);

@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 
 
+/**
+ * The type Graphic observer.
+ */
 public class GraphicObserver extends Frame implements Observer {
     private GridLayout grid;
     private JPanel centerComponent;
@@ -27,6 +30,11 @@ public class GraphicObserver extends Frame implements Observer {
         buildLevel(current);
     }
 
+    /**
+     * Build level.
+     *
+     * @param state the state
+     */
     public void buildLevel(Level state){
         losewin.removeAll();
         grid = new GridLayout(state.getHeight(),state.getWidth());
@@ -81,7 +89,9 @@ public class GraphicObserver extends Frame implements Observer {
     }
 
 
-    /**Set up for won or lost game*/
+    /**
+     * Set up for won or lost game
+     */
     public void win () {
         BoxLayout box = new BoxLayout(losewin, BoxLayout.Y_AXIS);
         losewin.setLayout(box);
@@ -110,6 +120,9 @@ public class GraphicObserver extends Frame implements Observer {
         frame.setVisible(true);
     }
 
+    /**
+     * Lose.
+     */
     public void lose(){
         BoxLayout box = new BoxLayout(losewin, BoxLayout.Y_AXIS);
         losewin.setLayout(box);

@@ -3,10 +3,19 @@ package Sokoban2;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Sokoban.
+ */
 public class Sokoban implements Controller{
 
-    //region static variables
+    /**
+     * The constant lvlCounter.
+     */
+//region static variables
     public static int lvlCounter;
+    /**
+     * The constant current.
+     */
     public static Level current;
     private static boolean winFlag;
     private static boolean loseFlag;
@@ -16,7 +25,9 @@ public class Sokoban implements Controller{
 
     //endregion
 
-
+    /**
+     * Instantiates a new Sokoban.
+     */
     public Sokoban() {
         lvlCounter = 0;
         current = setLevel(lvlCounter);
@@ -25,6 +36,11 @@ public class Sokoban implements Controller{
         m.setController(this);
     }
 
+    /**
+     * Set input method.
+     *
+     * @param m the m
+     */
     public void setInputMethod(InputMethod m){
         this.m = m;
         m.setController(this);
@@ -33,13 +49,17 @@ public class Sokoban implements Controller{
     //region observers & add
     private static List<Observer> observers = new ArrayList<Observer>();
 
+    /**
+     * Add observer.
+     *
+     * @param so the so
+     */
     public void addObserver(Observer so) {
         observers.add(so);
         for (Observer o : observers)
             o.updateCurrentState(current, loseFlag, winFlag, lvlCounter);
     }
     //endregion
-
 
     private static Level setLevel(int i) {
         current = new Level(Level.levels[i].getHeight(), Level.levels[i].getWidth(), Level.levels[i].getPassable(),
@@ -50,6 +70,26 @@ public class Sokoban implements Controller{
     }
 
     //region updates on same level
+    @Override
+    public void clickedPosition(int xMouse, int yMouse, int frameWidth, int frameHeight) {
+        int columns = (frameWidth/current.getWidth()) * current.getPlayerCol();
+        int oneCol = frameWidth/current.getWidth();
+        int oneRow = frameHeight/(current.getHeight());
+        int rows = (frameHeight/(current.getHeight()))*current.getPlayerRow();
+
+        if (columns < (xMouse-10) && (rows<(yMouse-10) && (rows+oneRow)>(yMouse-10))){
+            walkRight();
+        }
+        else if (columns > xMouse && (rows<(yMouse-10) && (rows+oneRow)>(yMouse-10))){
+            walkLeft();
+        }
+        else if (rows+32 > yMouse && (columns+oneCol>(xMouse-10) && (columns-oneCol < (xMouse-10)))){
+            walkUp();
+        }
+        else if ((rows-32) < yMouse && (columns+oneCol>(xMouse-10) && (columns-oneCol < (xMouse-10)))){
+            walkDown();
+        }
+    }
 
     public void walkRight() {
         //Checks if there's a box to be pushed
@@ -94,34 +134,6 @@ public class Sokoban implements Controller{
 
         for (Observer o : observers)
             o.updateCurrentState(current, winFlag, loseFlag, lvlCounter);
-    }
-
-    @Override
-    public void clickedPosition(int xMouse, int yMouse, int frameWidth, int frameHeight) {
-    int columns = (frameWidth/current.getWidth()) * current.getPlayerCol();
-    int oneCol = frameWidth/current.getWidth();
-    int oneRow = frameHeight/(current.getHeight());
-    int rows = (frameHeight/(current.getHeight()))*current.getPlayerRow();
-        System.out.println("ROWS : " + current.getHeight() + " FRAME : " + frameHeight + " ROWS:" + oneRow);
-        System.out.println("COLUMNS : " + current.getWidth() + " FRAME : " + frameWidth + " COLS : " + frameWidth/current.getWidth());
-        System.out.println("PLAYER POSITION: " + columns +","+ rows);
-
-        if (columns < (xMouse-10) && (rows<(yMouse-10) && (rows+oneRow)>(yMouse-10))){
-        System.out.println("\nGoing Right: " + columns + "< " + xMouse +" and " + rows + "<" + yMouse +"<" + (rows+oneRow));
-        walkRight();
-    }
-    else if (columns > xMouse && (rows<(yMouse-10) && (rows+oneRow)>(yMouse-10))){
-        System.out.println("\nGoing Left: " + columns + "< " + xMouse +" and " + rows + "<" + yMouse +"<" + (rows+oneRow));
-        walkLeft();
-    }
-    else if (rows+32 > yMouse && (columns+oneCol>(xMouse-10) && (columns-oneCol < (xMouse-10)))){
-            System.out.println("\nGoing Up: " + (rows+32) + "> " + yMouse +" and " + columns + ">" + (xMouse-10) +">" + (columns-oneCol));
-            walkUp();
-    }
-    else if ((rows-32) < yMouse && (columns+oneCol>(xMouse-10) && (columns-oneCol < (xMouse-10)))){
-            System.out.println("\nGoing Down: " + (rows-32) + "< " + yMouse +" and " + (columns+oneCol) + ">" + (xMouse-10) +">" + (columns-oneCol));
-            walkDown();
-    }
     }
 
     public void walkDown() {
@@ -169,6 +181,9 @@ public class Sokoban implements Controller{
             o.updateCurrentState(current, winFlag, loseFlag, lvlCounter);
     }
 
+    /**
+     * Check lost game.
+     */
     public static void checkLostGame(){
         if((((!current.getPassable()[current.getBoxRow()][current.getBoxCol()+1]&&!current.getPassable()[current.getBoxRow()-1][current.getBoxCol()]) )||
                 ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()+1]&&!current.getPassable()[current.getBoxRow()+1][current.getBoxCol()]) )||
