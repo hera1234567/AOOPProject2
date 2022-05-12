@@ -14,7 +14,6 @@ public class Sokoban implements Controller{
     //TODO FIXA SÅ ATT DET GÅR MED MOUSPAD OCKSÅ
     private InputMethod m = new KeyPad(Frame.getFrame());
 
-
     //endregion
 
 
@@ -23,7 +22,6 @@ public class Sokoban implements Controller{
         current = setLevel(lvlCounter);
         winFlag = false;
         loseFlag = false;
-        // m = new KeyPad(Frame.getFrame());
         m.setController(this);
     }
 
