@@ -1,7 +1,5 @@
 package Project.Framework;
 
-//import Project.Sokoban.Level;
-
 /**
  * Observer interface
  * Sends out updates to all classes implementing observer
