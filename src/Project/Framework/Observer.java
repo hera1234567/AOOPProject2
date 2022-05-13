@@ -1,5 +1,7 @@
 package Project.Framework;
 
+import java.io.IOException;
+
 /**
  * Observer interface
  * Sends out updates to all classes implementing observer

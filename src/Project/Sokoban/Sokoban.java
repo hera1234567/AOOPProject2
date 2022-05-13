@@ -1,6 +1,7 @@
 package Project.Sokoban;
 
 import Project.Framework.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,8 @@ public class Sokoban implements Controller {
     private static Level current;
     private static boolean winFlag;
     private static boolean loseFlag;
-//TODO FIXA SÅ ATT DET GÅR MED MOUSPAD OCKSÅ
-    private InputMethod m = new KeyPad(Frame.getFrame());
+    //TODO FIXA SÅ ATT DET ANTINGEN ÄR MOUSEPAD ELLER KEYPAD
+    private InputMethod m;// = new KeyPad(Frame.getFrame());
 
     //endregion
 
@@ -35,7 +36,7 @@ public class Sokoban implements Controller {
         current = setLevel(lvlCounter);
         winFlag = false;
         loseFlag = false;
-        m.setController(this);
+        //m.setController(this);
     }
 
     /**

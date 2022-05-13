@@ -11,6 +11,7 @@ import java.awt.event.KeyListener;
  */
 public class KeyPad implements InputMethod, KeyListener, ActionListener {
 
+
     private JFrame frame;
     private JButton button;
     private Controller c;

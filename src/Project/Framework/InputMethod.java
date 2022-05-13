@@ -11,4 +11,5 @@ public interface InputMethod {
      */
     void setController(Controller c);
 
+
 }

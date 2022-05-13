@@ -12,9 +12,7 @@ public class Level {
     private int boxRow;
     private int boxCol;
     private boolean [][] passable;
-    /**
-     * The Levels.
-     */
+
     public static Level[] levels= {level1(), level2(), level3(), level4()};
 
     /**

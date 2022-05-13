@@ -2,40 +2,63 @@ package Project.Sokoban;
 
 import Project.Framework.Frame;
 import Project.Framework.Observer;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * The type Replay observer.
  */
-public class ReplayObserver extends Frame implements Observer<Level> {
-    private GridLayout grid;
-    /**
-     * The Center component.
-     */
+public class ReplayObserver implements Observer<Level> {
+
+    File[] file = new File[100];
+    int counter =0;
+
+
+    private void saveScreenShot() {
+        BufferedImage img = new BufferedImage(Frame.getFrame().getWidth(), Frame.getFrame().getHeight(), BufferedImage.TYPE_INT_RGB);
+        Frame.getFrame().paint(img.getGraphics());
+        file[counter]= new File("saved.png");
+        try {
+            ImageIO.write(img, "png", file[counter]);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        counter++;
+    }
+
+    @Override
+    public void updateCurrentState(Level state, boolean winFlag, boolean loseFlag, int lvlCounter){
+        saveScreenShot();
+
+    }
+
+    /*private GridLayout grid;
+
     JComponent centerComponent;
-    /**
-     * The Level.
-     */
+
     Level[] level = new Level[20];
-    /**
-     * The Counter.
-     */
+
     int counter;
     @Override
     public void updateCurrentState(Level state, boolean winFlag, boolean loseFlag, int lvlCounter) {
+
         level[counter] = state;
         counter++;
-        System.out.println(level[counter]);
+        System.out.println(counter);
         if (winFlag||loseFlag)
         {
-            final int[] i = {0};
-            Timer t = new Timer(1000, new ActionListener() {
+            Timer t = new Timer(500, new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                   buildLevel(level[i[0]], winFlag);
-                    i[0] += 1;
+                    int i = 0;
+                   buildLevel(level[i], winFlag);
+                    i ++;
                 }
             });
             t.start();
@@ -43,12 +66,12 @@ public class ReplayObserver extends Frame implements Observer<Level> {
         }
     }
 
-    /**
+
      * Build level.
      *
      * @param state   the state
      * @param winFlag the win flag
-     */
+
     public void buildLevel(Level state, Boolean winFlag){
         grid = new GridLayout(state.getHeight(),state.getWidth());
         centerComponent.removeAll();
@@ -95,5 +118,5 @@ public class ReplayObserver extends Frame implements Observer<Level> {
         centerComponent = new JPanel();
         centerComponent.setPreferredSize(new Dimension(250, 200));
         return centerComponent;
-    }
+    }*/
 }
