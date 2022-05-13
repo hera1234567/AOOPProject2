@@ -15,7 +15,7 @@ public class Level {
     /**
      * The Levels.
      */
-    public static Level[] levels= {level1(), level2(), level3(), level4()};
+    public static Level[] levels= {level1(), level2(), level3(), level4(), level5()};
 
     /**
      * Instantiates a new Level.
@@ -206,6 +206,23 @@ public class Level {
                 {false,false,false,false,false,false,false}
         };
         return new Level(6,7,passable,2,1,4,1,2,2 );
+    }
+
+    /**
+     * Level 5 level.
+     *
+     * @return the level
+     */
+    public static Level level5(){
+        boolean[][] passable = {
+                {false,false,false,false,false,false},
+                {true,true,true,true,true,false},
+                {false,false,true,true,true,false},
+                {false,true,true,false,true,false},
+                {false,true,true,true,true,false},
+                {false,false,false,false,false,false}
+        };
+        return new Level(6,6,passable,1,0,4,1,2,3);
     }
 
     //endregion

@@ -10,5 +10,4 @@ public interface InputMethod {
      * @param c the controller to be used
      */
     void setController(Controller c);
-
 }

@@ -26,6 +26,7 @@ public class ReplayObserver extends Frame implements Observer<Level> {
     int counter;
     @Override
     public void updateCurrentState(Level state, boolean winFlag, boolean loseFlag, int lvlCounter) {
+
         level[counter] = state;
         counter++;
         System.out.println(level[counter]);
