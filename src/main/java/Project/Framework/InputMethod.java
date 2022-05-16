@@ -1,4 +1,4 @@
-package Project.Framework;
+package main.java.Project.Framework;
 
 /**
  * The interface Input method.
