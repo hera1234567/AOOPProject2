@@ -4,9 +4,15 @@ import Project.Sokoban.GraphicObserver;
 import Project.Sokoban.Sokoban;
 import Project.Sokoban.SoundObserver;
 
+/**
+ * The type Controller tester.
+ */
 public class ControllerTester implements Controller{
 
-   public ControllerTester(){
+    /**
+     * Instantiates a new Controller tester.
+     */
+    public ControllerTester(){
 
    }
 
@@ -52,7 +58,15 @@ public class ControllerTester implements Controller{
 
 }
 
+/**
+ * The type Test.
+ */
 class Test{
+    /**
+     * Main.
+     *
+     * @param args the args
+     */
     public static void main(String[] args){
 
         //Testing keypad
