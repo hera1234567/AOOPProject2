@@ -108,28 +108,45 @@ public class Level {
      * @param row the row
      */
 //region setters
-    public void setPlayerRow(int row) {playerRow=row;}
+    public void setPlayerRow(int row) {
+        if(!(row>=height)||!(row<0)) {
+            playerRow = row;
+        }
+    }
+
 
     /**
      * Sets player col.
      *
      * @param col the col
      */
-    public void setPlayerCol(int col) {playerCol=col;}
+    public void setPlayerCol(int col) {
+        if(!(col>=width)||!(col<0)) {
+            playerRow = col;
+        }
+    }
 
     /**
      * Sets box row.
      *
      * @param row the row
      */
-    public void setBoxRow(int row) {boxRow=row;}
+    public void setBoxRow(int row) {
+        if(!(row>=height)||!(row<0)) {
+            boxRow=row;
+        }
+    }
 
     /**
      * Sets box col.
      *
      * @param col the col
      */
-    public void setBoxCol(int col) {boxCol=col;}
+    public void setBoxCol(int col) {
+        if(!(col>=width)||!(col<0)) {
+        boxCol = col;
+        }
+    }
     //endregion
 
     /**
