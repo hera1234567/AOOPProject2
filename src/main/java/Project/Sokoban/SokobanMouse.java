@@ -1,9 +1,7 @@
 package main.java.Project.Sokoban;
 
-import Project.Sokoban.SoundObserver;
 import main.java.Project.Framework.Frame;
 import main.java.Project.Framework.MousePad;
-import main.java.Project.Framework.InputMethod;
 
 public class SokobanMouse {
     public static void main(String[] args) {

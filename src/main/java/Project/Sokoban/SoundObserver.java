@@ -1,4 +1,4 @@
-package Project.Sokoban;
+package main.java.Project.Sokoban;
 
 import main.java.Project.Framework.Observer;
 import main.java.Project.Sokoban.Level;
@@ -39,15 +39,15 @@ public class SoundObserver implements Observer<Level> {
 
         if (winFlag){
             //WIN SOUND
-            play(System.getProperty("user.dir") + "/src/Project/icons/win (1).wav");
+            play(System.getProperty("user.dir") + "/src/main/java/Project/icons/win (1).wav");
         }
         else if (loseFlag){
             //LOSE SOUND
-            play(System.getProperty("user.dir") + "/src/Project/icons/lose.wav");
+            play(System.getProperty("user.dir") + "/src/main/java/Project/icons/lose.wav");
         }
         else{
             //WALK SOUND
-            play(System.getProperty("user.dir") + "/src/Project/icons/step.wav");
+            play(System.getProperty("user.dir") + "/src/main/java/Project/icons/step.wav");
         }
     }
 }
