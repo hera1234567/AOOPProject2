@@ -51,6 +51,10 @@ public class Sokoban implements Controller {
         return m;
     }
 
+    public void setController(Controller c){
+        m.setController(c);
+    }
+
     //region observers & add
     private static List<Observer> observers = new ArrayList<Observer>();
     public List<Observer> getObservers(){
