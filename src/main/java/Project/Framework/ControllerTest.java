@@ -1,11 +1,11 @@
 package main.java.Project.Framework;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class ControllerTest {
 
     @org.junit.jupiter.api.Test
     void walkUp() {
+        InputMethod m =new KeyPad(Frame.getFrame());
+        //m.setController(this);
     }
 
     @org.junit.jupiter.api.Test

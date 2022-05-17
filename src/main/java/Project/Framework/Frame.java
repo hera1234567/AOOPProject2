@@ -55,7 +55,7 @@ public abstract class Frame extends JFrame{
      * @param args text to be set on button
      * @return the j button
      */
-    public JButton setTextButton(String args){
+    public static JButton setTextButton(String args){
         button.setText(args);
         return button;
     }
