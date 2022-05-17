@@ -1,7 +1,11 @@
 package main.java.Project.Framework;
 
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.*;
+
 
 /**
  * The type Mouse pad.
@@ -9,6 +13,8 @@ import java.awt.event.*;
 public class MousePad implements InputMethod, MouseListener, ActionListener {
 
     private JFrame frame;
+    private JButton button;
+    private Controller c;
 
     /**
      * Instantiates a new Mouse pad.
@@ -18,9 +24,10 @@ public class MousePad implements InputMethod, MouseListener, ActionListener {
     public MousePad(JFrame frame){
         this.frame=frame;
         frame.addMouseListener(this);
+        button= Frame.getButton();
+        button.addActionListener(this);
     }
 
-    private Controller c;
 
     @Override
     public void setController(Controller c) {
@@ -69,6 +76,7 @@ public class MousePad implements InputMethod, MouseListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton temp = Frame.getTextButton();
+        System.out.println("I ACTION");
         switch (temp.getText()) {
             case "Restart Level": {
                 c.restartLevel();
