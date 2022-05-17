@@ -109,7 +109,7 @@ public class Level {
      */
 //region setters
     public void setPlayerRow(int row) {
-        if(!(row>=height)||!(row<0)) {
+        if(!(row>=height)||!(row<0)||passable[row][playerCol]) {
             playerRow = row;
         }
     }
@@ -121,8 +121,8 @@ public class Level {
      * @param col the col
      */
     public void setPlayerCol(int col) {
-        if(!(col>=width)||!(col<0)) {
-            playerRow = col;
+        if(!(col>=width)||!(col<0)||passable[playerRow][col]) {
+            playerCol = col;
         }
     }
 
@@ -132,7 +132,7 @@ public class Level {
      * @param row the row
      */
     public void setBoxRow(int row) {
-        if(!(row>=height)||!(row<0)) {
+        if(!(row>=height)||!(row<0)||passable[row][boxCol]) {
             boxRow=row;
         }
     }
@@ -143,7 +143,7 @@ public class Level {
      * @param col the col
      */
     public void setBoxCol(int col) {
-        if(!(col>=width)||!(col<0)) {
+        if(!(col>=width)||!(col<0)||passable[boxRow][col]) {
         boxCol = col;
         }
     }
