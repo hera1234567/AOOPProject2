@@ -6,6 +6,7 @@ import Project.Sokoban.SoundObserver;
 
 /**
  * The type Controller tester.
+ * Tests the interface Controller
  */
 public class ControllerTester implements Controller{
 
