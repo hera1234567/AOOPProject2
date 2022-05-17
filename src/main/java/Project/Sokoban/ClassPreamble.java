@@ -1,4 +1,4 @@
-package Project.Sokoban;
+package main.java.Project.Sokoban;
 
 /**
  * The interface Class preamble.

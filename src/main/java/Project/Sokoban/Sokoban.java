@@ -1,6 +1,6 @@
-package Project.Sokoban;
+package main.java.Project.Sokoban;
 
-import Project.Framework.*;
+import main.java.Project.Framework.*;
 
 import java.util.ArrayList;
 import java.util.List;

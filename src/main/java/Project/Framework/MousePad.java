@@ -1,4 +1,4 @@
-package Project.Framework;
+package main.java.Project.Framework;
 
 import javax.swing.*;
 import java.awt.event.*;

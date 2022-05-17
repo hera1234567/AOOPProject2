@@ -1,13 +1,8 @@
-package Project.Sokoban;
+package main.java.Project.Sokoban;
 
-import Project.Framework.Frame;
-import Project.Framework.Observer;
-
+import main.java.Project.Framework.*;
+import main.java.Project.Framework.Frame;
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

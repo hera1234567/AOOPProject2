@@ -1,8 +1,7 @@
-package Project.Sokoban;
+package main.java.Project.Sokoban;
 
-import Project.Framework.Frame;
-import Project.Framework.Observer;
-
+import main.java.Project.Framework.Frame;
+import main.java.Project.Framework.Observer;
 import javax.swing.*;
 import java.awt.*;
 
@@ -51,28 +50,28 @@ public class GraphicObserver extends Frame implements Observer<Level> {
             for (int col = 0; col < state.getWidth(); col++) {
                 JLabel positionPanel = new JLabel();
                 if(!state.getPassable()[row][col]){ //if there is wall
-                    positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Project/icons/wall.png"));
+                    positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/main/java/Project/icons/wall.png"));
                     positionPanel.setName("wall");
                 }
                 else if(row==state.getPlayerRow() && col==state.getPlayerCol()){ //if there its the starting position for the player
-                    positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Project/icons/player.png"));
+                    positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/main/java/Project/icons/player.png"));
                     positionPanel.setName("player");
                 }
                 else if(row==state.getTargetRow() && col== state.getTargetCol()){ //if it's the targets position
                     if (!winFlag) {
-                        positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/Project/icons/blankmarked.png"));
+                        positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir") + "/src/main/java/Project/icons/blankmarked.png"));
                         positionPanel.setName("target");
                     }  else{
-                        positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Project/icons/crate.png"));
+                        positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/main/java/Project/icons/crate.png"));
                         positionPanel.setName("box");
                     }
                 }
                 else if(row==state.getBoxRow() && col== state.getBoxCol()){ //if it's the boxes starting position
-                    positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Project/icons/crate.png"));
+                    positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/main/java/Project/icons/crate.png"));
                     positionPanel.setName("box");
                 }
                 else { //if it's a blank
-                    positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/Project/icons/blank.png "));
+                    positionPanel.setIcon(new ImageIcon(System.getProperty("user.dir")+"/src/main/java/Project/icons/blank.png "));
                     positionPanel.setName("blank");
                 }
                 centerComponent.add(positionPanel);

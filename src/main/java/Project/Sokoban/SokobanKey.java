@@ -1,7 +1,9 @@
-package Project.Sokoban;
+package main.java.Project.Sokoban;
 
-import Project.Framework.Frame;
-import Project.Framework.KeyPad;
+import Project.Sokoban.SoundObserver;
+import main.java.Project.Framework.Frame;
+import main.java.Project.Framework.KeyPad;
+import main.java.Project.Framework.InputMethod;
 
 public class SokobanKey {
     public static void main(String[] args) {

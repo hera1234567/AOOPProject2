@@ -1,6 +1,6 @@
-package Project.Sokoban;
+package main.java.Project.Sokoban;
 
-import Project.Framework.Observer;
+import main.java.Project.Framework.Observer;
 
 import javax.swing.*;
 

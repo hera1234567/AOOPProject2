@@ -1,6 +1,7 @@
 package Project.Sokoban;
 
-import Project.Framework.Observer;
+import main.java.Project.Framework.Observer;
+import main.java.Project.Sokoban.Level;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
