@@ -23,8 +23,7 @@ public class Sokoban implements Controller {
     private static Level current;
     private static boolean winFlag;
     private static boolean loseFlag;
-    //TODO FIXA SÅ ATT DET ANTINGEN ÄR MOUSEPAD ELLER KEYPAD
-    private InputMethod m;// = new KeyPad(Frame.getFrame());
+    private InputMethod m;
 
     //endregion
 
@@ -36,7 +35,6 @@ public class Sokoban implements Controller {
         current = setLevel(lvlCounter);
         winFlag = false;
         loseFlag = false;
-        //m.setController(this);
     }
 
     /**
@@ -49,10 +47,15 @@ public class Sokoban implements Controller {
         this.m = m;
         m.setController(this);
     }
-
+    public InputMethod getInputMethod(){
+        return m;
+    }
 
     //region observers & add
     private static List<Observer> observers = new ArrayList<Observer>();
+    public List<Observer> getObservers(){
+        return observers;
+    }
 
     /**
      * Add observer.
