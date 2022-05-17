@@ -1,4 +1,4 @@
-package main.java.Project.Sokoban;
+package Project.Sokoban;
 
 /**
  * The game level models

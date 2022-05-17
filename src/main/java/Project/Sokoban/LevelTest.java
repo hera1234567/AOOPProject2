@@ -1,4 +1,4 @@
-package main.java.Project.Sokoban;
+package Project.Sokoban;
 
 import org.junit.jupiter.api.Test;
 

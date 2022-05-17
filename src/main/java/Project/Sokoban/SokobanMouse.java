@@ -1,7 +1,7 @@
-package main.java.Project.Sokoban;
+package Project.Sokoban;
 
-import main.java.Project.Framework.Frame;
-import main.java.Project.Framework.MousePad;
+import Project.Framework.Frame;
+import Project.Framework.MousePad;
 
 public class SokobanMouse {
     public static void main(String[] args) {

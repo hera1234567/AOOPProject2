@@ -1,4 +1,4 @@
-package main.java.Project.Framework;
+package Project.Framework;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

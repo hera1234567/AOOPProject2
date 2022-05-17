@@ -1,7 +1,7 @@
-package main.java.Project.Sokoban;
+package Project.Sokoban;
 
-import main.java.Project.Framework.*;
-import main.java.Project.Framework.Frame;
+import Project.Framework.*;
+import Project.Framework.Frame;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;

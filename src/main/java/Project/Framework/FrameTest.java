@@ -1,4 +1,4 @@
-package main.java.Project.Framework;
+package Project.Framework;
 
 import org.junit.jupiter.api.Test;
 import javax.swing.*;

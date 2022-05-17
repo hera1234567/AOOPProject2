@@ -1,9 +1,9 @@
-package main.java.Project.Sokoban;
+package Project.Sokoban;
 
-import main.java.Project.Framework.Frame;
-import main.java.Project.Framework.InputMethod;
-import main.java.Project.Framework.KeyPad;
-import main.java.Project.Framework.Observer;
+import Project.Framework.Frame;
+import Project.Framework.InputMethod;
+import Project.Framework.KeyPad;
+import Project.Framework.Observer;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
