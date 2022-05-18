@@ -1,9 +1,12 @@
-package Project.Sokoban;
+package Project.Test;
 
 import Project.Framework.Frame;
 import Project.Framework.InputMethod;
 import Project.Framework.KeyPad;
 import Project.Framework.Observer;
+import Project.Sokoban.GraphicObserver;
+import Project.Sokoban.PositionObserver;
+import Project.Sokoban.Sokoban;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

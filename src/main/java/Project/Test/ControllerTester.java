@@ -1,5 +1,8 @@
-package Project.Framework;
+package Project.Test;
 
+import Project.Framework.Controller;
+import Project.Framework.Frame;
+import Project.Framework.KeyPad;
 import Project.Sokoban.GraphicObserver;
 import Project.Sokoban.Sokoban;
 import Project.Sokoban.SoundObserver;
@@ -8,7 +11,7 @@ import Project.Sokoban.SoundObserver;
  * The type Controller tester.
  * Tests the interface Controller
  */
-public class ControllerTester implements Controller{
+public class ControllerTester implements Controller {
 
     /**
      * Instantiates a new Controller tester.

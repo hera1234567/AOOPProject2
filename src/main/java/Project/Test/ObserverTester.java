@@ -1,4 +1,6 @@
-package Project.Framework;
+package Project.Test;
+
+import Project.Framework.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * The type Observer tester.
  */
-public class ObserverTester implements Observer<String>{
+public class ObserverTester implements Observer<String> {
     @Override
     public void updateCurrentState(String state, boolean winFlag, boolean loseFlag, int lvlCounter) {
         assertEquals(state, "hej");
