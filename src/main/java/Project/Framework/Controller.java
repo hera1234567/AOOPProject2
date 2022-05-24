@@ -58,4 +58,8 @@ public interface Controller {
      * a method to override in the class implementation to restart the whole program
      */
     void restartGame();
+
+    void save();
+
+    void load();
 }

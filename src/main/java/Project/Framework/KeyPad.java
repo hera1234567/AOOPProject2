@@ -66,6 +66,14 @@ public class KeyPad implements InputMethod, KeyListener, ActionListener {
                 c.walkUp();
                 break;
             }
+            case KeyEvent.VK_S:{
+                c.save();
+                break;
+            }
+            case KeyEvent.VK_L:{
+                c.load();
+                break;
+            }
         }
     }
 

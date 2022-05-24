@@ -60,6 +60,16 @@ public class ControllerTester implements Controller {
         System.out.println("RESTART GAME");
     }
 
+    @Override
+    public void save() {
+
+    }
+
+    @Override
+    public void load() {
+
+    }
+
 }
 
 /**
