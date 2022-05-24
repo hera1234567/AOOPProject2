@@ -243,11 +243,6 @@ public class Sokoban implements Controller {
     }
     //endregion
 
-  /*  public void save(){
-        Serialization ser = new Serialization();
-        ser.serialization(current, winFlag, loseFlag, lvlCounter);
-    }*/
-
     public void save(){
         Serialization ser = new Serialization();
         ser.serialization(lvlCounter, current.getPlayerCol(),current.getPlayerRow(),
@@ -271,18 +266,5 @@ public class Sokoban implements Controller {
             o.updateCurrentState(current, winFlag,loseFlag, lvlCounter);
 
     }
-
-  /*  public void load(){
-        Serialization temp = new Serialization();
-        SerializationObject ser = temp.deSerialization();
-        current = ser.state;
-        winFlag = ser.winFlag;
-        loseFlag = ser.loseFlag;
-        lvlCounter = ser.level;
-
-        for (Observer o : observers)
-            o.updateCurrentState(current, winFlag,loseFlag, lvlCounter);
-
-    }*/
 
 }
