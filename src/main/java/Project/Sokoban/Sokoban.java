@@ -243,12 +243,36 @@ public class Sokoban implements Controller {
     }
     //endregion
 
-    public void save(){
+  /*  public void save(){
         Serialization ser = new Serialization();
         ser.serialization(current, winFlag, loseFlag, lvlCounter);
+    }*/
+
+    public void save(){
+        Serialization ser = new Serialization();
+        ser.serialization(lvlCounter, current.getPlayerCol(),current.getPlayerRow(),
+                current.getBoxCol(), current.getBoxRow(), winFlag, loseFlag);
+
     }
 
     public void load(){
+        Serialization temp = new Serialization();
+        SerializationObject ser = temp.deSerialization();
+        setLevel(ser.level);
+        current.setPlayerCol(ser.playerX);
+        current.setPlayerRow(ser.playerY);
+        current.setBoxCol(ser.boxX);
+        current.setBoxRow(ser.boxY);
+        winFlag = ser.winFlag;
+        loseFlag = ser.loseFlag;
+        lvlCounter = ser.level;
+
+        for (Observer o : observers)
+            o.updateCurrentState(current, winFlag,loseFlag, lvlCounter);
+
+    }
+
+  /*  public void load(){
         Serialization temp = new Serialization();
         SerializationObject ser = temp.deSerialization();
         current = ser.state;
@@ -259,6 +283,6 @@ public class Sokoban implements Controller {
         for (Observer o : observers)
             o.updateCurrentState(current, winFlag,loseFlag, lvlCounter);
 
-    }
+    }*/
 
 }
