@@ -10,7 +10,8 @@ import java.awt.event.*;
 /**
  * The type Mouse pad.
  */
-public class MousePad implements InputMethod, MouseListener, ActionListener {
+public class MousePad implements InputMethod, MouseListener, ActionListener, KeyListener {
+
 
     private JFrame frame;
     private JButton button;
@@ -24,6 +25,7 @@ public class MousePad implements InputMethod, MouseListener, ActionListener {
     public MousePad(JFrame frame){
         this.frame=frame;
         frame.addMouseListener(this);
+        frame.addKeyListener(this);
         button= Frame.getButton();
         button.addActionListener(this);
     }
@@ -76,7 +78,6 @@ public class MousePad implements InputMethod, MouseListener, ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton temp = Frame.getTextButton();
-        System.out.println("I ACTION");
         switch (temp.getText()) {
             case "Restart Level": {
                 c.restartLevel();
@@ -91,5 +92,31 @@ public class MousePad implements InputMethod, MouseListener, ActionListener {
                 break;
             }
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        switch (keyCode) {
+            case KeyEvent.VK_S:{
+                c.save();
+                break;
+            }
+            case KeyEvent.VK_L:{
+                c.load();
+                break;
+            }
+        }
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
     }
 }

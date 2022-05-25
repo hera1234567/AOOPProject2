@@ -59,7 +59,15 @@ public interface Controller {
      */
     void restartGame();
 
+    /**
+     * Save.
+     * a method to save current game status
+     */
     void save();
 
+    /**
+     * Load.
+     * a method to load a previously saved game status
+     */
     void load();
 }

@@ -5,6 +5,9 @@ import Project.Framework.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Sokoban.
+ */
 @ClassPreamble(
         author = "Hanna Martinsson, Amanda Törnqvist",
         date = "12/5-2022"
@@ -18,11 +21,26 @@ import java.util.List;
 public class Sokoban implements Controller {
 
 
-    //region static variables
+    /**
+     * The constant lvlCounter.
+     */
+//region static variables
     private static int lvlCounter;
+    /**
+     * The constant current.
+     */
     private static Level current;
+    /**
+     * The constant winFlag.
+     */
     private static boolean winFlag;
+    /**
+     * The constant loseFlag.
+     */
     private static boolean loseFlag;
+    /**
+     * The M.
+     */
     private InputMethod m;
 
     //endregion
@@ -47,23 +65,43 @@ public class Sokoban implements Controller {
         this.m = m;
         m.setController(this);
     }
+
+    /**
+     * Get input method input method.
+     *
+     * @return the input method
+     */
     public InputMethod getInputMethod(){
         return m;
     }
 
+    /**
+     * Set controller.
+     *
+     * @param c the c
+     */
     public void setController(Controller c){
         m.setController(c);
     }
 
-    //region observers & add
+    /**
+     * The constant observers.
+     */
+//region observers & add
     private static List<Observer> observers = new ArrayList<Observer>();
+
+    /**
+     * Get observers list.
+     *
+     * @return the list
+     */
     public List<Observer> getObservers(){
         return observers;
     }
 
     /**
      * Add observer.
-     *
+     * <p>
      * Adds the observer to the list and sends out an update so all observers have the data directly from start
      *
      * @param so the observer to be added
@@ -77,7 +115,7 @@ public class Sokoban implements Controller {
 
     /**
      * Sets level.
-     *
+     * <p>
      * Creates a new Level that can be manipulated from the original model.
      *
      * @param i the level that wants to be reached
@@ -91,7 +129,23 @@ public class Sokoban implements Controller {
         return current;
     }
 
-    //region updates on same level
+    /**
+     * Set level with position.
+     *
+     * @param level   the level
+     * @param playerX the player x
+     * @param playerY the player y
+     * @param boxX    the box x
+     * @param boxY    the box y
+     */
+    private void setLevelWithPosition(int level, int playerX, int playerY, int boxX, int boxY){
+        current = new Level(Level.levels[level].getHeight(), Level.levels[level].getWidth(), Level.levels[level].getPassable(),
+                playerY, playerX,
+                Level.levels[level].getTargetRow(), Level.levels[level].getTargetCol(),
+                boxY, boxX);
+    }
+
+    //region overrides controller
     @Override
     public void clickedPosition(int xMouse, int yMouse, int frameWidth, int frameHeight) {
         int columns = (frameWidth/current.getWidth()) * current.getPlayerCol();
@@ -202,21 +256,6 @@ public class Sokoban implements Controller {
             o.updateCurrentState(current, winFlag, loseFlag, lvlCounter);
     }
 
-    /**
-     * Check lost game.
-     * Checks if the box has walls on 2 adjacent sides, and makes sure that the target isn't reached
-     */
-    public static void checkLostGame(){
-        if((((!current.getPassable()[current.getBoxRow()][current.getBoxCol()+1]&&!current.getPassable()[current.getBoxRow()-1][current.getBoxCol()]) )||
-                ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()+1]&&!current.getPassable()[current.getBoxRow()+1][current.getBoxCol()]) )||
-                ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()-1]&&!current.getPassable()[current.getBoxRow()-1][current.getBoxCol()]) )||
-                ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()-1]&&!current.getPassable()[current.getBoxRow()+1][current.getBoxCol()])))
-                && !(current.getTargetRow()==current.getBoxRow() && current.getTargetCol()==current.getBoxCol())){
-            loseFlag = true;
-        }
-    }
-    //endregion
-
     //region restart or change of level
     public void nextLevel() {
         winFlag = false;
@@ -243,6 +282,7 @@ public class Sokoban implements Controller {
     }
     //endregion
 
+
     public void save(){
         Serialization ser = new Serialization();
         ser.serialization(lvlCounter, current.getPlayerCol(),current.getPlayerRow(),
@@ -253,11 +293,7 @@ public class Sokoban implements Controller {
     public void load(){
         Serialization temp = new Serialization();
         SerializationObject ser = temp.deSerialization();
-        setLevel(ser.level);
-        current.setPlayerCol(ser.playerX);
-        current.setPlayerRow(ser.playerY);
-        current.setBoxCol(ser.boxX);
-        current.setBoxRow(ser.boxY);
+        setLevelWithPosition(ser.level,ser.playerX, ser.playerY, ser.boxX, ser.boxY);
         winFlag = ser.winFlag;
         loseFlag = ser.loseFlag;
         lvlCounter = ser.level;
@@ -266,5 +302,22 @@ public class Sokoban implements Controller {
             o.updateCurrentState(current, winFlag,loseFlag, lvlCounter);
 
     }
+//endregion
+
+
+    /**
+     * Check lost game.
+     * Checks if the box has walls on 2 adjacent sides, and makes sure that the target isn't reached
+     */
+    public static void checkLostGame(){
+        if((((!current.getPassable()[current.getBoxRow()][current.getBoxCol()+1]&&!current.getPassable()[current.getBoxRow()-1][current.getBoxCol()]) )||
+                ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()+1]&&!current.getPassable()[current.getBoxRow()+1][current.getBoxCol()]) )||
+                ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()-1]&&!current.getPassable()[current.getBoxRow()-1][current.getBoxCol()]) )||
+                ((!current.getPassable()[current.getBoxRow()][current.getBoxCol()-1]&&!current.getPassable()[current.getBoxRow()+1][current.getBoxCol()])))
+                && !(current.getTargetRow()==current.getBoxRow() && current.getTargetCol()==current.getBoxCol())){
+            loseFlag = true;
+        }
+    }
+
 
 }

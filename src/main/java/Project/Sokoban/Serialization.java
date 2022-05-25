@@ -2,8 +2,12 @@ package Project.Sokoban;
 
 import java.io.*;
 
+/**
+ * The type Serialization object.
+ */
 class SerializationObject implements Serializable {
 
+    //region instance variables for Serialazable object
     Boolean winFlag;
     Boolean loseFlag;
     int level;
@@ -11,8 +15,19 @@ class SerializationObject implements Serializable {
     int playerY;
     int boxX;
     int boxY;
+//endregion
 
-
+    /**
+     * Instantiates a new Serialization object.
+     *
+     * @param level    the level
+     * @param playerX  the player x
+     * @param playerY  the player y
+     * @param boxX     the box x
+     * @param boxY     the box y
+     * @param winFlag  the win flag
+     * @param loseFlag the lose flag
+     */
     public SerializationObject(int level, int playerX, int playerY, int boxX, int boxY, boolean winFlag, boolean loseFlag) {
         this.playerX = playerX;
         this.playerY = playerY;
@@ -26,7 +41,25 @@ class SerializationObject implements Serializable {
 
 }
 
+/**
+ * The type Serialization.
+ */
 class Serialization implements Serializable{
+
+    /**
+     * Serialization.
+     *
+     * Takes the position of the player and box, the level the player is at and if that level is won or lost.
+     * These values are saved in a file in the project called Saved.
+     *
+     * @param level    the level
+     * @param playerX  the player x
+     * @param playerY  the player y
+     * @param boxX     the box x
+     * @param boxY     the box y
+     * @param winFlag  the win flag
+     * @param loseFlag the lose flag
+     */
     public void serialization(int level, int playerX, int playerY, int boxX, int boxY, boolean winFlag, boolean loseFlag){
         SerializationObject ser = new SerializationObject(level,playerX,playerY,boxX, boxY, winFlag,loseFlag);
         try {
@@ -35,11 +68,12 @@ class Serialization implements Serializable{
             ObjectOutputStream out = new ObjectOutputStream
                     (file);
 
-            // Method for serialization of object
             out.writeObject(ser);
 
             out.close();
             file.close();
+
+            System.out.println("Current game status has been saved");
 
         }
 
@@ -49,30 +83,38 @@ class Serialization implements Serializable{
         }
     }
 
+    /**
+     * De serialization serialization object.
+     *
+     * Takes out the previous serialized object and returns that to the calling function
+     *
+     * @return the serialization object
+     */
     public SerializationObject deSerialization()
     {
         try {
 
-            // Reading the object from a file
             FileInputStream file = new FileInputStream
             (System.getProperty("user.dir")+"/src/main/java/Project/Saved");
             ObjectInputStream in = new ObjectInputStream
                     (file);
 
-            // Method for deserialization of object
             SerializationObject serialization = (SerializationObject) in.readObject();
 
             in.close();
             file.close();
+            System.out.println("A saved game has been restored");
             return serialization;
         }
 
         catch (IOException ex) {
+            ex.printStackTrace();
             System.out.println("IOException is caught");
             return null;
         }
 
         catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
             System.out.println("ClassNotFoundException" +
                     " is caught");
             return null;

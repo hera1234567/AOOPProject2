@@ -110,7 +110,6 @@ public class Level {
 //region setters
     public void setPlayerRow(int row) {
         if((!(row>=height)&&!(row<0))&&passable[row][playerCol]) {
-            System.out.println(row);
             playerRow = row;
         }
     }

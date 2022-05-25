@@ -11,6 +11,6 @@ public class SokobanKey {
         Sokoban s = new Sokoban();
         s.setInputMethod(new KeyPad(Frame.getFrame()));
         s.addObserver(sok);
-        //s.addObserver(sound);
+        s.addObserver(sound);
     }
 }
