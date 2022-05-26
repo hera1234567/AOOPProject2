@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SerializationTest {
 
 
-    @Test //Both for serialization and deSerialization
+    @Test
     void deSerialization() {
         SerializationObject test = new SerializationObject(1, 2, 3, 4, 5, false, false);
         Serialization.serialization(1, 2, 3, 4, 5, false, false);
