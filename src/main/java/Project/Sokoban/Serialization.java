@@ -60,7 +60,7 @@ class Serialization implements Serializable{
      * @param winFlag  the win flag
      * @param loseFlag the lose flag
      */
-    public void serialization(int level, int playerX, int playerY, int boxX, int boxY, boolean winFlag, boolean loseFlag){
+    public static void serialization(int level, int playerX, int playerY, int boxX, int boxY, boolean winFlag, boolean loseFlag){
         SerializationObject ser = new SerializationObject(level,playerX,playerY,boxX, boxY, winFlag,loseFlag);
         try {
             FileOutputStream file = new FileOutputStream
@@ -90,7 +90,7 @@ class Serialization implements Serializable{
      *
      * @return the serialization object
      */
-    public SerializationObject deSerialization()
+    public static SerializationObject deSerialization()
     {
         try {
 
